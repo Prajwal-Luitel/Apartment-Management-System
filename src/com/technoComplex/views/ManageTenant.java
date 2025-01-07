@@ -4,10 +4,12 @@
  */
 package com.technoComplex.views;
 
+import com.technoComplex.model.FlatModel;
 import com.technoComplex.model.TenantModel;
 import com.technoComplex.util.ValidationUtil;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -22,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManageTenant extends javax.swing.JFrame {
 
+    private List<FlatModel> flatList;
     private List<TenantModel> tenantList;
 
     /**
@@ -30,38 +33,21 @@ public class ManageTenant extends javax.swing.JFrame {
     public ManageTenant() {
         initComponents();
         initializeData();
+        loadListToTable(tenantList);
     }
 
     /**
-     * Initializes the application's data, including the tenant list and table.
-     * Populates the tenant list with sample data for demonstration purposes.
-     */
-    private void initializeData() {
-        tenantList = new LinkedList<>(); // linkedlist is used for data storage
-        // Registering sample tenant
-        registerTenant(new TenantModel((short) 101, "Ram Shrestha", (short) 25, "9812345670", "2019-03-15", (short) 101, "Male"));
-        registerTenant(new TenantModel((short) 102, "Sita Pokherel", (short) 30, "9823456781", "2020-06-10", (short) 102, "Female"));
-        registerTenant(new TenantModel((short) 103, "Hari Khadka", (short) 40, "9834567892", "2018-08-20", (short) 103, "Male"));
-        registerTenant(new TenantModel((short) 104, "Gita Thapa", (short) 22, "9845678903", "2021-01-25", (short) 104, "Female"));
-        registerTenant(new TenantModel((short) 105, "Krishna Lama", (short) 35, "9856789014", "2022-11-05", (short) 105, "Male"));
-        registerTenant(new TenantModel((short) 106, "Rita Koirala", (short) 28, "9867890125", "2023-09-30", (short) 106, "Female"));
-        registerTenant(new TenantModel((short) 107, "Bikash Kafle", (short) 45, "9878901236", "2024-07-18", (short) 107, "Male"));
-        registerTenant(new TenantModel((short) 108, "Saraswati Rai", (short) 32, "9889012347", "2020-04-12", (short) 108, "Female"));
-        registerTenant(new TenantModel((short) 109, "Prakash Karki", (short) 50, "9890123458", "2023-02-28", (short) 109, "Male"));
-        registerTenant(new TenantModel((short) 110, "Mina Dahal", (short) 27, "9801234569", "2018-12-10", (short) 110, "Female"));
-    }
-
-    /**
-     * Method to add tenant data and populate the table
+     * Creates new form ManageTenant populate table with the tenant data
+     * obtained from other JFrame and store rent data in list.
      *
+     * @param flatList flat data list from other JFrame
+     * @param tenantList tenant data list from other JFrame
      */
-    private void registerTenant(TenantModel tenant) {
-        tenantList.add(tenant);
-        DefaultTableModel model = (DefaultTableModel) tblMangeTenant.getModel();
-        model.addRow(new Object[]{
-            tenant.getTenantId(), tenant.getName(), tenant.getAge(), tenant.getContact(),
-            tenant.getJoinDate(), tenant.getFlatId(), tenant.getGender()
-        });
+    public ManageTenant(List<FlatModel> flatList, List<TenantModel> tenantList) {
+        initComponents();
+        this.flatList = new ArrayList(flatList);
+        this.tenantList = new LinkedList(tenantList);
+        loadListToTable(this.tenantList);
     }
 
     /**
@@ -109,6 +95,9 @@ public class ManageTenant extends javax.swing.JFrame {
         pnlMenuSettingLogout = new javax.swing.JPanel();
         lblMenuSettingLogoutIcon = new javax.swing.JLabel();
         lblMenuSettingLogoutTitle = new javax.swing.JLabel();
+        pnlMenuManageCleaningLog = new javax.swing.JPanel();
+        lblMenuManageCleaningLogIcon = new javax.swing.JLabel();
+        lblMenuManageCleaningLog = new javax.swing.JLabel();
         lblMenuBackgroundImage = new javax.swing.JLabel();
         lblLoginClose = new javax.swing.JLabel();
         lblViewTenantDetails = new javax.swing.JLabel();
@@ -285,15 +274,15 @@ public class ManageTenant extends javax.swing.JFrame {
         pnlMenu.add(pnlMenuManageTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, -1, -1));
 
         lblMenuSortAndSearchLeftBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSortAndSearchLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 10));
+        pnlMenu.add(lblMenuSortAndSearchLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 100, 10));
 
         lblMenuSortAndSearchTitle.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         lblMenuSortAndSearchTitle.setForeground(new java.awt.Color(191, 191, 191));
         lblMenuSortAndSearchTitle.setText("Sort and Search");
-        pnlMenu.add(lblMenuSortAndSearchTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 160, 20));
+        pnlMenu.add(lblMenuSortAndSearchTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 160, 20));
 
         lblMenuSortAndSearchRightBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSortAndSearchRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, 120, 10));
+        pnlMenu.add(lblMenuSortAndSearchRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 520, 120, 10));
 
         pnlMenuSortAndSearchFlat.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSortAndSearchFlat.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -320,7 +309,7 @@ public class ManageTenant extends javax.swing.JFrame {
         lblMenuSortAndSearchFlatTitle.setText("Flat");
         pnlMenuSortAndSearchFlat.add(lblMenuSortAndSearchFlatTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSortAndSearchFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, -1, -1));
+        pnlMenu.add(pnlMenuSortAndSearchFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, -1, -1));
 
         pnlMenuSortAndSearchTenant.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSortAndSearchTenant.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -347,18 +336,18 @@ public class ManageTenant extends javax.swing.JFrame {
         lblMenuSortAndSearchTenantTitle.setText("Tenant");
         pnlMenuSortAndSearchTenant.add(lblMenuSortAndSearchTenantTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSortAndSearchTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, -1, -1));
+        pnlMenu.add(pnlMenuSortAndSearchTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, -1, -1));
 
         lblMenuSettingLeftBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSettingLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, 130, 10));
+        pnlMenu.add(lblMenuSettingLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 130, 10));
 
         lblMenuSettingTitle.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         lblMenuSettingTitle.setForeground(new java.awt.Color(191, 191, 191));
         lblMenuSettingTitle.setText("Setting");
-        pnlMenu.add(lblMenuSettingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 610, 70, 20));
+        pnlMenu.add(lblMenuSettingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 670, 70, 20));
 
         lblMenuSettingRightBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSettingRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 610, 160, 10));
+        pnlMenu.add(lblMenuSettingRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 670, 160, 10));
 
         pnlMenuSettingLogout.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSettingLogout.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -385,7 +374,33 @@ public class ManageTenant extends javax.swing.JFrame {
         lblMenuSettingLogoutTitle.setText("Log Out");
         pnlMenuSettingLogout.add(lblMenuSettingLogoutTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSettingLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, -1, -1));
+        pnlMenu.add(pnlMenuSettingLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 690, -1, -1));
+
+        pnlMenuManageCleaningLog.setMinimumSize(new java.awt.Dimension(371, 60));
+        pnlMenuManageCleaningLog.setOpaque(false);
+        pnlMenuManageCleaningLog.setPreferredSize(new java.awt.Dimension(371, 60));
+        pnlMenuManageCleaningLog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLogMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLogMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLogMouseExited(evt);
+            }
+        });
+        pnlMenuManageCleaningLog.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblMenuManageCleaningLogIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/cleaninglog.png"))); // NOI18N
+        pnlMenuManageCleaningLog.add(lblMenuManageCleaningLogIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 60));
+
+        lblMenuManageCleaningLog.setFont(new java.awt.Font("Poppins", 0, 28)); // NOI18N
+        lblMenuManageCleaningLog.setForeground(new java.awt.Color(255, 255, 255));
+        lblMenuManageCleaningLog.setText("Cleaning Log");
+        pnlMenuManageCleaningLog.add(lblMenuManageCleaningLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 11, -1, -1));
+
+        pnlMenu.add(pnlMenuManageCleaningLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, -1, -1));
 
         lblMenuBackgroundImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/background/fd.png"))); // NOI18N
         pnlMenu.add(lblMenuBackgroundImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -434,6 +449,7 @@ public class ManageTenant extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblMangeTenant.setRowHeight(30);
         tblMangeTenant.getTableHeader().setReorderingAllowed(false);
         scrlpnMangeTenantTable.setViewportView(tblMangeTenant);
         if (tblMangeTenant.getColumnModel().getColumnCount() > 0) {
@@ -446,7 +462,7 @@ public class ManageTenant extends javax.swing.JFrame {
             tblMangeTenant.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        pnlManageTenantMain.add(scrlpnMangeTenantTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 1210, 250));
+        pnlManageTenantMain.add(scrlpnMangeTenantTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 1210, 250));
 
         lblMangeFlatTitle.setFont(new java.awt.Font("Poppins", 0, 36)); // NOI18N
         lblMangeFlatTitle.setForeground(new java.awt.Color(102, 153, 255));
@@ -455,57 +471,57 @@ public class ManageTenant extends javax.swing.JFrame {
 
         lblTenantId.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblTenantId.setText("Tenant Id ");
-        pnlManageTenantMain.add(lblTenantId, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 430, -1, -1));
+        pnlManageTenantMain.add(lblTenantId, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 440, -1, -1));
 
         lblColonTenantId.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblColonTenantId.setText(":");
-        pnlManageTenantMain.add(lblColonTenantId, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 430, 10, -1));
-        pnlManageTenantMain.add(txtFldTenantId, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 420, 120, 40));
+        pnlManageTenantMain.add(lblColonTenantId, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 440, 10, -1));
+        pnlManageTenantMain.add(txtFldTenantId, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 440, 120, 40));
 
         lblName.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblName.setText("Name");
-        pnlManageTenantMain.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 500, -1, -1));
+        pnlManageTenantMain.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 540, -1, -1));
 
         lblColonName.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblColonName.setText(":");
-        pnlManageTenantMain.add(lblColonName, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 500, 10, -1));
-        pnlManageTenantMain.add(txtFldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 490, 250, 40));
+        pnlManageTenantMain.add(lblColonName, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 540, 10, -1));
+        pnlManageTenantMain.add(txtFldName, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 530, 250, 40));
 
         lblAge.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblAge.setText("Age");
-        pnlManageTenantMain.add(lblAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 570, -1, -1));
+        pnlManageTenantMain.add(lblAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 620, -1, -1));
 
         lblColonAge.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblColonAge.setText(":");
-        pnlManageTenantMain.add(lblColonAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 570, 10, -1));
-        pnlManageTenantMain.add(txtFldAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 560, 90, 40));
+        pnlManageTenantMain.add(lblColonAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 620, 10, -1));
+        pnlManageTenantMain.add(txtFldAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 610, 90, 40));
 
         lblContact.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblContact.setText("Contact");
-        pnlManageTenantMain.add(lblContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 640, -1, -1));
+        pnlManageTenantMain.add(lblContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 520, -1, -1));
 
         lblColonContact.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblColonContact.setText(":");
-        pnlManageTenantMain.add(lblColonContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 640, 10, -1));
-        pnlManageTenantMain.add(txtFldContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 640, 250, 40));
+        pnlManageTenantMain.add(lblColonContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 520, 10, -1));
+        pnlManageTenantMain.add(txtFldContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 510, 290, 40));
 
         lblFlatId.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblFlatId.setText("Flat Id ");
-        pnlManageTenantMain.add(lblFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 710, 90, -1));
+        pnlManageTenantMain.add(lblFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 620, 90, -1));
 
         lblColonFlat.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblColonFlat.setText(":");
-        pnlManageTenantMain.add(lblColonFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 710, 10, -1));
-        pnlManageTenantMain.add(txtFldFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 710, 120, 40));
+        pnlManageTenantMain.add(lblColonFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 620, 10, -1));
+        pnlManageTenantMain.add(txtFldFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 610, 120, 40));
 
         lblJoinDate.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblJoinDate.setText("Join Date");
-        pnlManageTenantMain.add(lblJoinDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 450, -1, -1));
+        pnlManageTenantMain.add(lblJoinDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 450, -1, -1));
 
-        dtChrDateChooser.setDateFormatString("YYYY,MM,dd");
+        dtChrDateChooser.setDateFormatString("yyyy,MM,dd");
         dtChrDateChooser.setMaxSelectableDate(new java.util.Date(1735672575000L));
         dtChrDateChooser.setMinSelectableDate(new java.util.Date(1514747764000L));
-        pnlManageTenantMain.add(dtChrDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 450, 290, 30));
+        pnlManageTenantMain.add(dtChrDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 440, 290, 30));
 
         btnAdd.setBackground(new java.awt.Color(102, 153, 255));
         btnAdd.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
@@ -515,7 +531,7 @@ public class ManageTenant extends javax.swing.JFrame {
                 btnAddActionPerformed(evt);
             }
         });
-        pnlManageTenantMain.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 780, 120, 60));
+        pnlManageTenantMain.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 760, 120, 60));
 
         btnUpdate.setBackground(new java.awt.Color(102, 153, 255));
         btnUpdate.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
@@ -525,7 +541,7 @@ public class ManageTenant extends javax.swing.JFrame {
                 btnUpdateActionPerformed(evt);
             }
         });
-        pnlManageTenantMain.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 780, 120, 60));
+        pnlManageTenantMain.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 760, 120, 60));
 
         btnDelete.setBackground(new java.awt.Color(102, 153, 255));
         btnDelete.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
@@ -535,45 +551,105 @@ public class ManageTenant extends javax.swing.JFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-        pnlManageTenantMain.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 780, 120, 60));
+        pnlManageTenantMain.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 760, 120, 60));
 
         lblGender.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblGender.setText("Gender");
-        pnlManageTenantMain.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 650, -1, -1));
+        pnlManageTenantMain.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 620, -1, -1));
 
         btnGrpGender.add(rdoBtnFemale);
+        rdoBtnFemale.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         rdoBtnFemale.setText("Female");
-        pnlManageTenantMain.add(rdoBtnFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 660, -1, -1));
+        rdoBtnFemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoBtnFemaleActionPerformed(evt);
+            }
+        });
+        pnlManageTenantMain.add(rdoBtnFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 620, -1, -1));
 
         btnGrpGender.add(rdoBtnMale);
+        rdoBtnMale.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         rdoBtnMale.setText("Male");
-        pnlManageTenantMain.add(rdoBtnMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 660, -1, -1));
+        pnlManageTenantMain.add(rdoBtnMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 620, -1, -1));
 
         lblErrorMsgTenantId.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageTenantMain.add(lblErrorMsgTenantId, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 400, -1, -1));
+        pnlManageTenantMain.add(lblErrorMsgTenantId, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
 
         lblErrorMsgName.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageTenantMain.add(lblErrorMsgName, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, -1, -1));
+        pnlManageTenantMain.add(lblErrorMsgName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 520, -1, -1));
 
         lblErrorMsgAge.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageTenantMain.add(lblErrorMsgAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 540, -1, -1));
+        pnlManageTenantMain.add(lblErrorMsgAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 600, -1, -1));
 
         lblErrorMsgContact.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageTenantMain.add(lblErrorMsgContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 620, -1, -1));
+        pnlManageTenantMain.add(lblErrorMsgContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 500, -1, -1));
 
         lblErrorMsgFlatId.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageTenantMain.add(lblErrorMsgFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 690, -1, -1));
+        pnlManageTenantMain.add(lblErrorMsgFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 600, -1, -1));
 
         lblErrorMsgJoinDate.setForeground(new java.awt.Color(255, 0, 0));
         pnlManageTenantMain.add(lblErrorMsgJoinDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 430, -1, -1));
 
         lblErrorMsgGender.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageTenantMain.add(lblErrorMsgGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 630, -1, -1));
+        pnlManageTenantMain.add(lblErrorMsgGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 600, -1, -1));
 
         getContentPane().add(pnlManageTenantMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Populate the flat data in flat list
+     */
+    private void initialFlatData() {
+        flatList = new ArrayList<>();
+        flatList.add(new FlatModel((short) 106, 120000, 900, (byte) 3, (byte) 3, (byte) 2, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 107, 450000, 1800, (byte) 4, (byte) 5, (byte) 3, "Unfurnished", "Available"));
+        flatList.add(new FlatModel((short) 108, 60000, 1200, (byte) 2, (byte) 1, (byte) 1, "Furnished", "Available"));
+        flatList.add(new FlatModel((short) 101, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 102, 150000, 800, (byte) 2, (byte) 2, (byte) 1, "Unfurnished", "Not Available"));
+        flatList.add(new FlatModel((short) 103, 300000, 1200, (byte) 3, (byte) 4, (byte) 2, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 109, 200000, 1500, (byte) 2, (byte) 4, (byte) 2, "Unfurnished", "Available"));
+        flatList.add(new FlatModel((short) 110, 350000, 2200, (byte) 4, (byte) 6, (byte) 3, "Furnished", "Available"));
+        flatList.add(new FlatModel((short) 100, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 104, 500000, 2000, (byte) 4, (byte) 5, (byte) 3, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 105, 70000, 600, (byte) 2, (byte) 1, (byte) 1, "Unfurnished", "Not Available"));
+    }
+
+    /**
+     * Populate the tenant data in tenant list
+     */
+    private void initialTenantData() {
+        tenantList = new ArrayList<>();
+        tenantList.add(new TenantModel((short) 102, "Sita Pokherel", (short) 30, "9823456781", "2020-06-10", (short) 100, "Female"));
+        tenantList.add(new TenantModel((short) 103, "Hari Khadka", (short) 40, "9834567892", "2018-08-20", (short) 101, "Male"));
+        tenantList.add(new TenantModel((short) 104, "Gita Thapa", (short) 22, "9845678903", "2021-01-25", (short) 102, "Female"));
+        tenantList.add(new TenantModel((short) 105, "Krishna Lama", (short) 35, "9856789014", "2022-11-05", (short) 103, "Male"));
+        tenantList.add(new TenantModel((short) 107, "Bikash Kafle", (short) 45, "9878901236", "2024-07-18", (short) 104, "Male"));
+        tenantList.add(new TenantModel((short) 108, "Saraswati Rai", (short) 32, "9889012347", "2020-04-12", (short) 105, "Female"));
+        tenantList.add(new TenantModel((short) 110, "Mina Dahal", (short) 27, "9801234569", "2018-12-10", (short) 106, "Female"));
+//        tenantList.add(new TenantModel((short) 109, "Prakash Karki", (short) 50, "9890123458", "2023-02-28", (short) 109, "Male"));
+//        tenantList.add(new TenantModel((short) 101, "Ram Shrestha", (short) 25, "9812345670", "2019-03-15", (short) 101, "Male"));
+//        tenantList.add(new TenantModel((short) 106, "Rita Koirala", (short) 28, "9867890125", "2023-09-30", (short) 106, "Female"));
+    }
+
+    /**
+     * Populates the List with the stored default flat and tenant data.
+     * Initialize the List with default value only when the list is null
+     */
+    private void initializeData() {
+        try {
+            flatList.isEmpty();
+        } catch (NullPointerException ne) {
+            initialFlatData();
+        }
+
+        try {
+            tenantList.isEmpty();
+        } catch (NullPointerException ne) {
+            initialTenantData();
+        }
+    }
 
     /**
      * Turn the background light and show underline for label when mouse entered
@@ -605,7 +681,7 @@ public class ManageTenant extends javax.swing.JFrame {
     }
 
     private void pnlMenuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuHomeMouseClicked
-        new Home().setVisible(true);
+        new Home(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuHomeMouseClicked
 
@@ -618,7 +694,7 @@ public class ManageTenant extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuHomeMouseExited
 
     private void pnlMenuDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuDashboardMouseClicked
-        new Dashboard().setVisible(true);
+        new Dashboard(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuDashboardMouseClicked
 
@@ -631,7 +707,7 @@ public class ManageTenant extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuDashboardMouseExited
 
     private void pnlMenuSortAndSearchFlatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuSortAndSearchFlatMouseClicked
-        new SortAndSearchFlat().setVisible(true);
+        new SortAndSearchFlat(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuSortAndSearchFlatMouseClicked
 
@@ -644,7 +720,7 @@ public class ManageTenant extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuSortAndSearchFlatMouseExited
 
     private void pnlMenuSortAndSearchTenantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuSortAndSearchTenantMouseClicked
-        new SortAndSearchTenant().setVisible(true);
+        new SortAndSearchTenant(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuSortAndSearchTenantMouseClicked
 
@@ -670,7 +746,7 @@ public class ManageTenant extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuSettingLogoutMouseExited
 
     private void pnlMenuManageFlatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageFlatMouseClicked
-        new ManageFlat().setVisible(true);
+        new ManageFlat(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuManageFlatMouseClicked
 
@@ -682,9 +758,9 @@ public class ManageTenant extends javax.swing.JFrame {
         mouseExit(pnlMenuManageFlat, lblMenuManageFlatTitle);
     }//GEN-LAST:event_pnlMenuManageFlatMouseExited
     /**
-     * Handles the mouse click event on the close label in the ManageTenant window.
-     * Prompts the user with a confirmation dialog to close the system. If the
-     * user confirms, the application is terminated.
+     * Handles the mouse click event on the close label in the ManageTenant
+     * window. Prompts the user with a confirmation dialog to close the system.
+     * If the user confirms, the application is terminated.
      *
      * @param evt the event triggered by clicking on the close label
      */
@@ -722,7 +798,7 @@ public class ManageTenant extends javax.swing.JFrame {
                     ValidationUtil.isValidAge(age)
             );
         } catch (NumberFormatException e) {
-            validateField(
+            isValid = validateField(
                     txtFldAge, "Age", lblErrorMsgAge, "In between 18 to 60",
                     false
             );
@@ -764,6 +840,10 @@ public class ManageTenant extends javax.swing.JFrame {
                     Short.parseShort(txtFldFlatId.getText().trim()),
                     rdoBtnFemale.isSelected() ? "Female" : "Male"
             );
+            // Check for valid flat Id
+            if (!checkForAvaiableFlat((short) newTenant.getFlatId())) {
+                return;
+            }
             // Check for duplicate tenant Id
             if (checkDuplicateTenant(newTenant)) {
                 txtFldTenantId.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 2));
@@ -780,6 +860,42 @@ public class ManageTenant extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    /**
+     * Checks whether a rent with the flat ID already exists in the list and it
+     * is available to rent or not.
+     *
+     * @param flatId the Flat Id to check if exist and is available or not
+     * @return true if a flatId with available status is found, false otherwise
+     */
+    private boolean checkForAvaiableFlat(short flatId) {
+        int i = 0;
+        while (i < flatList.size()) {
+            if (flatList.get(i).getFlatId() == flatId) {
+
+                if (flatList.get(i).GetFlatStatus().equals("Available")) {
+                    //Flat is available 
+                    flatList.get(i).setFlatStatus("Not Available");
+                    return validateField(
+                            txtFldFlatId, "Flat ID", lblErrorMsgFlatId, "",
+                            true);
+                } else {
+                    // Flat is not available
+                    return validateField(
+                            txtFldFlatId, "Flat ID", lblErrorMsgFlatId, "Flat is Not Available",
+                            false);
+                }
+
+            }
+            i++;
+        }
+        // Flat Id not found
+        return validateField(
+                txtFldFlatId, "Flat ID", lblErrorMsgFlatId, "Flat Id doen't exist",
+                false);
+
+    }
+
     /**
      * Event handler for the Update button action. Validates input fields,
      * Update existing tenant record if valid, by matching the tenant id before
@@ -807,7 +923,7 @@ public class ManageTenant extends javax.swing.JFrame {
                     ValidationUtil.isValidAge(age)
             );
         } catch (NumberFormatException e) {
-            validateField(
+            isValid = validateField(
                     txtFldAge, "Age", lblErrorMsgAge, "In between 18 to 60",
                     false
             );
@@ -837,7 +953,7 @@ public class ManageTenant extends javax.swing.JFrame {
             lblErrorMsgJoinDate.setText(null);
         }
         if (isValid) {
-            
+
             // Taking the date object from JCalender and converting it to formated date string
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String formatDate = formatter.format(dtChrDateChooser.getDate());
@@ -851,6 +967,10 @@ public class ManageTenant extends javax.swing.JFrame {
                     Short.parseShort(txtFldFlatId.getText().trim()),
                     rdoBtnFemale.isSelected() ? "Female" : "Male"
             );
+            // Check for valid flat Id
+            if (!checkForAvaiableFlat((short) updateTenant.getFlatId())) {
+                return;
+            }
             boolean isUpdated = false;
             // Find and update the tenant in the list
             for (int i = 0; i < tenantList.size(); i++) {
@@ -887,7 +1007,7 @@ public class ManageTenant extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please select a tenant to delete by clicking on a row in the table.", "No Selection", JOptionPane.WARNING_MESSAGE);
         } else {
             // Confirm deletion
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the selected flat?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the selected Tenant?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 // Remove the flat from the list
@@ -900,6 +1020,25 @@ public class ManageTenant extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void pnlMenuManageCleaningLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLogMouseClicked
+        // TODO add your handling code here:
+        new CleaningLog(flatList, tenantList).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_pnlMenuManageCleaningLogMouseClicked
+
+    private void pnlMenuManageCleaningLogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLogMouseEntered
+
+        mouseEnter(pnlMenuManageCleaningLog, lblMenuManageCleaningLog);
+    }//GEN-LAST:event_pnlMenuManageCleaningLogMouseEntered
+
+    private void pnlMenuManageCleaningLogMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLogMouseExited
+        mouseExit(pnlMenuManageCleaningLog, lblMenuManageCleaningLog);
+    }//GEN-LAST:event_pnlMenuManageCleaningLogMouseExited
+
+    private void rdoBtnFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoBtnFemaleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdoBtnFemaleActionPerformed
 
     /**
      * Checks whether a tenant with the same flat ID already exists in the list.
@@ -1043,6 +1182,8 @@ public class ManageTenant extends javax.swing.JFrame {
     private javax.swing.JLabel lblMenuDashboardTitle;
     private javax.swing.JLabel lblMenuHomeIcon;
     private javax.swing.JLabel lblMenuHomeTitle;
+    private javax.swing.JLabel lblMenuManageCleaningLog;
+    private javax.swing.JLabel lblMenuManageCleaningLogIcon;
     private javax.swing.JLabel lblMenuManageFlatIcon;
     private javax.swing.JLabel lblMenuManageFlatTitle;
     private javax.swing.JLabel lblMenuManageLeftBoder;
@@ -1072,6 +1213,7 @@ public class ManageTenant extends javax.swing.JFrame {
     private javax.swing.JPanel pnlMenu;
     private javax.swing.JPanel pnlMenuDashboard;
     private javax.swing.JPanel pnlMenuHome;
+    private javax.swing.JPanel pnlMenuManageCleaningLog;
     private javax.swing.JPanel pnlMenuManageFlat;
     private javax.swing.JPanel pnlMenuManageTenant;
     private javax.swing.JPanel pnlMenuSettingLogout;

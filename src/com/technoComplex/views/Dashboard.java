@@ -22,13 +22,36 @@ public class Dashboard extends javax.swing.JFrame {
 
     private List<TenantModel> tenantList;
     private List<FlatModel> flatList;
+    private int rentedFlat = 0;
+    private int availableForFlat = 0;
+    private int TotalIncome = 0;
 
     /**
      * Creates new form Dashboard populate both tables with the data
+     *
      */
     public Dashboard() {
         initComponents();
         initializeData();
+        displayDashboardNumber();
+        loadFlatListToTable(flatList);
+        loadTenantListToTable(tenantList);
+    }
+
+    /**
+     * Creates new form Dashboard populate both tables with the data obtained
+     * from other JFrame
+     *
+     * @param flatList flat data list from other JFrame
+     * @param tenantList tenant data list from other JFrame
+     */
+    public Dashboard(List<FlatModel> flatList, List<TenantModel> tenantList) {
+        initComponents();
+        this.flatList = new ArrayList<>(flatList);
+        this.tenantList = new ArrayList<>(tenantList);
+        displayDashboardNumber();
+        loadFlatListToTable(this.flatList);
+        loadTenantListToTable(this.tenantList);
     }
 
     /**
@@ -75,14 +98,17 @@ public class Dashboard extends javax.swing.JFrame {
         pnlMenuSettingLogout = new javax.swing.JPanel();
         lblMenuSettingLogoutIcon = new javax.swing.JLabel();
         lblMenuSettingLogoutTitle = new javax.swing.JLabel();
+        pnlMenuManageCleaningLog2 = new javax.swing.JPanel();
+        lblMenuManageCleaningLogIcon2 = new javax.swing.JLabel();
+        lblMenuManageCleaningLog2 = new javax.swing.JLabel();
         lblMenuBackgroundImage = new javax.swing.JLabel();
         lblLoginClose = new javax.swing.JLabel();
         lblViewTenantDetails = new javax.swing.JLabel();
         scrlpnMangeTenantTable = new javax.swing.JScrollPane();
-        tblMangeTenant = new javax.swing.JTable();
+        tblManageTenant = new javax.swing.JTable();
         lblViewFlatDetails = new javax.swing.JLabel();
         scrlpnMangeFlatTable = new javax.swing.JScrollPane();
-        tblMangeFlat = new javax.swing.JTable();
+        tblManageFlat = new javax.swing.JTable();
         lblCountOfRentedFlat = new javax.swing.JLabel();
         lblRentedFlatBackground = new javax.swing.JLabel();
         lblAvailable = new javax.swing.JLabel();
@@ -95,7 +121,6 @@ public class Dashboard extends javax.swing.JFrame {
         lblTotalIncomeBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1706, 912));
         setMinimumSize(new java.awt.Dimension(1706, 912));
         setName("Dashboard"); // NOI18N
         setUndecorated(true);
@@ -235,15 +260,15 @@ public class Dashboard extends javax.swing.JFrame {
         pnlMenu.add(pnlMenuManageTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, -1, -1));
 
         lblMenuSortAndSearchLeftBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSortAndSearchLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 10));
+        pnlMenu.add(lblMenuSortAndSearchLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 100, 10));
 
         lblMenuSortAndSearchTitle.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         lblMenuSortAndSearchTitle.setForeground(new java.awt.Color(191, 191, 191));
         lblMenuSortAndSearchTitle.setText("Sort and Search");
-        pnlMenu.add(lblMenuSortAndSearchTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 160, 20));
+        pnlMenu.add(lblMenuSortAndSearchTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 160, 20));
 
         lblMenuSortAndSearchRightBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSortAndSearchRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, 120, 10));
+        pnlMenu.add(lblMenuSortAndSearchRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 520, 120, 10));
 
         pnlMenuSortAndSearchFlat.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSortAndSearchFlat.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -270,7 +295,7 @@ public class Dashboard extends javax.swing.JFrame {
         lblMenuSortAndSearchFlatTitle.setText("Flat");
         pnlMenuSortAndSearchFlat.add(lblMenuSortAndSearchFlatTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSortAndSearchFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, -1, -1));
+        pnlMenu.add(pnlMenuSortAndSearchFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, -1, -1));
 
         pnlMenuSortAndSearchTenant.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSortAndSearchTenant.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -297,18 +322,18 @@ public class Dashboard extends javax.swing.JFrame {
         lblMenuSortAndSearchTenantTitle.setText("Tenant");
         pnlMenuSortAndSearchTenant.add(lblMenuSortAndSearchTenantTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSortAndSearchTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, -1, -1));
+        pnlMenu.add(pnlMenuSortAndSearchTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, -1, -1));
 
         lblMenuSettingLeftBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSettingLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, 130, 10));
+        pnlMenu.add(lblMenuSettingLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 130, 10));
 
         lblMenuSettingTitle.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         lblMenuSettingTitle.setForeground(new java.awt.Color(191, 191, 191));
         lblMenuSettingTitle.setText("Setting");
-        pnlMenu.add(lblMenuSettingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 610, 70, 20));
+        pnlMenu.add(lblMenuSettingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 670, 70, 20));
 
         lblMenuSettingRightBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSettingRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 610, 160, 10));
+        pnlMenu.add(lblMenuSettingRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 670, 160, 10));
 
         pnlMenuSettingLogout.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSettingLogout.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -335,7 +360,33 @@ public class Dashboard extends javax.swing.JFrame {
         lblMenuSettingLogoutTitle.setText("Log Out");
         pnlMenuSettingLogout.add(lblMenuSettingLogoutTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSettingLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, -1, -1));
+        pnlMenu.add(pnlMenuSettingLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 690, -1, -1));
+
+        pnlMenuManageCleaningLog2.setMinimumSize(new java.awt.Dimension(371, 60));
+        pnlMenuManageCleaningLog2.setOpaque(false);
+        pnlMenuManageCleaningLog2.setPreferredSize(new java.awt.Dimension(371, 60));
+        pnlMenuManageCleaningLog2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLog2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLog2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLog2MouseExited(evt);
+            }
+        });
+        pnlMenuManageCleaningLog2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblMenuManageCleaningLogIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/cleaninglog.png"))); // NOI18N
+        pnlMenuManageCleaningLog2.add(lblMenuManageCleaningLogIcon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 60));
+
+        lblMenuManageCleaningLog2.setFont(new java.awt.Font("Poppins", 0, 28)); // NOI18N
+        lblMenuManageCleaningLog2.setForeground(new java.awt.Color(255, 255, 255));
+        lblMenuManageCleaningLog2.setText("Cleaning Log");
+        pnlMenuManageCleaningLog2.add(lblMenuManageCleaningLog2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 11, -1, -1));
+
+        pnlMenu.add(pnlMenuManageCleaningLog2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, -1, -1));
 
         lblMenuBackgroundImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/background/fd.png"))); // NOI18N
         pnlMenu.add(lblMenuBackgroundImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -355,13 +406,13 @@ public class Dashboard extends javax.swing.JFrame {
         lblViewTenantDetails.setFont(new java.awt.Font("Poppins", 0, 34)); // NOI18N
         lblViewTenantDetails.setForeground(new java.awt.Color(102, 153, 255));
         lblViewTenantDetails.setText("View Tenant Details");
-        pnlDashboardMain.add(lblViewTenantDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 620, 400, 40));
+        pnlDashboardMain.add(lblViewTenantDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 620, 400, 40));
 
         scrlpnMangeTenantTable.setBackground(new java.awt.Color(0, 255, 204));
         scrlpnMangeTenantTable.setForeground(new java.awt.Color(255, 255, 255));
         scrlpnMangeTenantTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        tblMangeTenant.setModel(new javax.swing.table.DefaultTableModel(
+        tblManageTenant.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -384,21 +435,29 @@ public class Dashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblMangeTenant.getTableHeader().setReorderingAllowed(false);
-        scrlpnMangeTenantTable.setViewportView(tblMangeTenant);
+        tblManageTenant.setRowHeight(30);
+        tblManageTenant.getTableHeader().setReorderingAllowed(false);
+        scrlpnMangeTenantTable.setViewportView(tblManageTenant);
+        if (tblManageTenant.getColumnModel().getColumnCount() > 0) {
+            tblManageTenant.getColumnModel().getColumn(0).setResizable(false);
+            tblManageTenant.getColumnModel().getColumn(1).setResizable(false);
+            tblManageTenant.getColumnModel().getColumn(3).setResizable(false);
+            tblManageTenant.getColumnModel().getColumn(5).setResizable(false);
+            tblManageTenant.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         pnlDashboardMain.add(scrlpnMangeTenantTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 670, 1210, 230));
 
         lblViewFlatDetails.setFont(new java.awt.Font("Poppins", 0, 34)); // NOI18N
         lblViewFlatDetails.setForeground(new java.awt.Color(102, 153, 255));
         lblViewFlatDetails.setText("View Flat Details");
-        pnlDashboardMain.add(lblViewFlatDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 310, 320, 40));
+        pnlDashboardMain.add(lblViewFlatDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 310, 320, 40));
 
         scrlpnMangeFlatTable.setBackground(new java.awt.Color(0, 255, 204));
         scrlpnMangeFlatTable.setForeground(new java.awt.Color(255, 255, 255));
         scrlpnMangeFlatTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        tblMangeFlat.setModel(new javax.swing.table.DefaultTableModel(
+        tblManageFlat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -421,118 +480,182 @@ public class Dashboard extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblMangeFlat.getTableHeader().setReorderingAllowed(false);
-        scrlpnMangeFlatTable.setViewportView(tblMangeFlat);
+        tblManageFlat.setRowHeight(30);
+        tblManageFlat.getTableHeader().setReorderingAllowed(false);
+        scrlpnMangeFlatTable.setViewportView(tblManageFlat);
+        if (tblManageFlat.getColumnModel().getColumnCount() > 0) {
+            tblManageFlat.getColumnModel().getColumn(0).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(1).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(2).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(3).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(4).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(5).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(6).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(7).setResizable(false);
+        }
 
         pnlDashboardMain.add(scrlpnMangeFlatTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, 1210, 220));
 
         lblCountOfRentedFlat.setFont(new java.awt.Font("Poppins", 0, 72)); // NOI18N
         lblCountOfRentedFlat.setForeground(new java.awt.Color(255, 255, 255));
         lblCountOfRentedFlat.setText("4");
-        pnlDashboardMain.add(lblCountOfRentedFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 180, 100));
+        pnlDashboardMain.add(lblCountOfRentedFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 180, 100));
 
         lblRentedFlatBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/background/Rented Flat.png"))); // NOI18N
-        pnlDashboardMain.add(lblRentedFlatBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
+        pnlDashboardMain.add(lblRentedFlatBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, -1, -1));
 
         lblAvailable.setFont(new java.awt.Font("Poppins", 0, 34)); // NOI18N
         lblAvailable.setForeground(new java.awt.Color(255, 255, 255));
         lblAvailable.setText("Available");
-        pnlDashboardMain.add(lblAvailable, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 50, 170, 40));
+        pnlDashboardMain.add(lblAvailable, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 40, 170, 40));
 
         lblForRent.setFont(new java.awt.Font("Poppins", 0, 34)); // NOI18N
         lblForRent.setForeground(new java.awt.Color(255, 255, 255));
         lblForRent.setText("For Rent");
-        pnlDashboardMain.add(lblForRent, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 90, 170, 40));
+        pnlDashboardMain.add(lblForRent, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 80, 170, 40));
 
         lblCountOfAvailableRent.setFont(new java.awt.Font("Poppins", 0, 72)); // NOI18N
         lblCountOfAvailableRent.setForeground(new java.awt.Color(255, 255, 255));
         lblCountOfAvailableRent.setText("7");
-        pnlDashboardMain.add(lblCountOfAvailableRent, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 130, 180, 100));
+        pnlDashboardMain.add(lblCountOfAvailableRent, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 120, 180, 100));
 
         lblAvailableForRentBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/background/Availabe Flat.png"))); // NOI18N
-        pnlDashboardMain.add(lblAvailableForRentBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 40, -1, -1));
+        pnlDashboardMain.add(lblAvailableForRentBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 40, -1, -1));
 
         lblTotal.setFont(new java.awt.Font("Poppins", 0, 34)); // NOI18N
         lblTotal.setForeground(new java.awt.Color(255, 255, 255));
         lblTotal.setText("Total");
-        pnlDashboardMain.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 50, 170, 40));
+        pnlDashboardMain.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 60, 170, 40));
 
         lblIncome.setFont(new java.awt.Font("Poppins", 0, 34)); // NOI18N
         lblIncome.setForeground(new java.awt.Color(255, 255, 255));
         lblIncome.setText("Income");
-        pnlDashboardMain.add(lblIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 90, 170, 40));
+        pnlDashboardMain.add(lblIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 100, 170, 40));
 
         lblCountOfTotalIncome.setFont(new java.awt.Font("Poppins", 0, 36)); // NOI18N
         lblCountOfTotalIncome.setForeground(new java.awt.Color(255, 255, 255));
         lblCountOfTotalIncome.setText("11,800,00");
-        pnlDashboardMain.add(lblCountOfTotalIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 140, 180, 60));
+        pnlDashboardMain.add(lblCountOfTotalIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 150, 180, 60));
 
         lblTotalIncomeBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/background/Total Income.png"))); // NOI18N
-        pnlDashboardMain.add(lblTotalIncomeBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 40, -1, -1));
+        pnlDashboardMain.add(lblTotalIncomeBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 50, -1, -1));
 
         getContentPane().add(pnlDashboardMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   /**
-     * Populate both tables Rent and Tenant with their data
+ 
+    /*
+     * Display the Number of rented flat, Number of available rent 
+     * and total income dynamically
+     */
+    private void displayDashboardNumber() {
+        rentedFlat = tenantList.size();
+        for (FlatModel flat : flatList) {
+            if (flat.GetFlatStatus().equals("Available")) {
+                ++availableForFlat;
+            } else {
+                TotalIncome += flat.getPrice();
+            }
+        }
+        lblCountOfRentedFlat.setText(Integer.toString(rentedFlat));
+        lblCountOfAvailableRent.setText(Integer.toString(availableForFlat));
+        lblCountOfTotalIncome.setText(Integer.toString(TotalIncome));
+
+    }
+
+    /**
+     * Populate the flat data in flat list
+     */
+    /**
+     * Populate the flat data in flat list
+     */
+    private void initialFlatData() {
+        flatList = new ArrayList<>();
+        flatList.add(new FlatModel((short) 106, 120000, 900, (byte) 3, (byte) 3, (byte) 2, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 107, 450000, 1800, (byte) 4, (byte) 5, (byte) 3, "Unfurnished", "Available"));
+        flatList.add(new FlatModel((short) 108, 60000, 1200, (byte) 2, (byte) 1, (byte) 1, "Furnished", "Available"));
+        flatList.add(new FlatModel((short) 101, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 102, 150000, 800, (byte) 2, (byte) 2, (byte) 1, "Unfurnished", "Not Available"));
+        flatList.add(new FlatModel((short) 103, 300000, 1200, (byte) 3, (byte) 4, (byte) 2, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 109, 200000, 1500, (byte) 2, (byte) 4, (byte) 2, "Unfurnished", "Available"));
+        flatList.add(new FlatModel((short) 110, 350000, 2200, (byte) 4, (byte) 6, (byte) 3, "Furnished", "Available"));
+        flatList.add(new FlatModel((short) 100, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 104, 500000, 2000, (byte) 4, (byte) 5, (byte) 3, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 105, 70000, 600, (byte) 2, (byte) 1, (byte) 1, "Unfurnished", "Not Available"));
+    }
+
+    /**
+     * Populate the tenant data in tenant list
+     */
+    private void initialTenantData() {
+        tenantList = new ArrayList<>();
+        tenantList.add(new TenantModel((short) 102, "Sita Pokherel", (short) 30, "9823456781", "2020-06-10", (short) 100, "Female"));
+        tenantList.add(new TenantModel((short) 103, "Hari Khadka", (short) 40, "9834567892", "2018-08-20", (short) 101, "Male"));
+        tenantList.add(new TenantModel((short) 104, "Gita Thapa", (short) 22, "9845678903", "2021-01-25", (short) 102, "Female"));
+        tenantList.add(new TenantModel((short) 105, "Krishna Lama", (short) 35, "9856789014", "2022-11-05", (short) 103, "Male"));
+        tenantList.add(new TenantModel((short) 107, "Bikash Kafle", (short) 45, "9878901236", "2024-07-18", (short) 104, "Male"));
+        tenantList.add(new TenantModel((short) 108, "Saraswati Rai", (short) 32, "9889012347", "2020-04-12", (short) 105, "Female"));
+        tenantList.add(new TenantModel((short) 110, "Mina Dahal", (short) 27, "9801234569", "2018-12-10", (short) 106, "Female"));
+//        tenantList.add(new TenantModel((short) 109, "Prakash Karki", (short) 50, "9890123458", "2023-02-28", (short) 109, "Male"));
+//        tenantList.add(new TenantModel((short) 101, "Ram Shrestha", (short) 25, "9812345670", "2019-03-15", (short) 101, "Male"));
+//        tenantList.add(new TenantModel((short) 106, "Rita Koirala", (short) 28, "9867890125", "2023-09-30", (short) 106, "Female"));
+    }
+
+    /**
+     * Populates the List with the stored default flat and tenant data.
+     * Initialize the List with default value only when the list is null
      */
     private void initializeData() {
+        try {
+            flatList.isEmpty(); // checking for null
+        } catch (NullPointerException ne) {
+            initialFlatData();
+        }
 
-        tenantList = new ArrayList<>();
-        // Registering sample tenant
-        registerTenant(new TenantModel((short) 101, "Ram Shrestha", (short) 25, "9812345670", "2019-03-15", (short) 101, "Male"));
-        registerTenant(new TenantModel((short) 102, "Sita Pokherel", (short) 30, "9823456781", "2020-06-10", (short) 102, "Female"));
-        registerTenant(new TenantModel((short) 103, "Hari Khadka", (short) 40, "9834567892", "2018-08-20", (short) 103, "Male"));
-        registerTenant(new TenantModel((short) 104, "Gita Thapa", (short) 22, "9845678903", "2021-01-25", (short) 104, "Female"));
-        registerTenant(new TenantModel((short) 105, "Krishna Lama", (short) 35, "9856789014", "2022-11-05", (short) 105, "Male"));
-        registerTenant(new TenantModel((short) 106, "Rita Koirala", (short) 28, "9867890125", "2023-09-30", (short) 106, "Female"));
-        registerTenant(new TenantModel((short) 107, "Bikash Kafle", (short) 45, "9878901236", "2024-07-18", (short) 107, "Male"));
-        registerTenant(new TenantModel((short) 108, "Saraswati Rai", (short) 32, "9889012347", "2020-04-12", (short) 108, "Female"));
-        registerTenant(new TenantModel((short) 109, "Prakash Karki", (short) 50, "9890123458", "2023-02-28", (short) 109, "Male"));
-        registerTenant(new TenantModel((short) 110, "Mina Dahal", (short) 27, "9801234569", "2018-12-10", (short) 110, "Female"));
-
-        flatList = new ArrayList<>();
-        // Registering sample flat
-        registerFlat(new FlatModel((short) 100, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Available"));
-        registerFlat(new FlatModel((short) 101, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Available"));
-        registerFlat(new FlatModel((short) 102, 150000, 800, (byte) 2, (byte) 2, (byte) 1, "Unfurnished", "Available"));
-        registerFlat(new FlatModel((short) 103, 300000, 1200, (byte) 3, (byte) 4, (byte) 2, "Furnished", "Not Available"));
-        registerFlat(new FlatModel((short) 104, 500000, 2000, (byte) 4, (byte) 5, (byte) 3, "Furnished", "Available"));
-        registerFlat(new FlatModel((short) 105, 70000, 600, (byte) 2, (byte) 1, (byte) 1, "Unfurnished", "Available"));
-        registerFlat(new FlatModel((short) 106, 120000, 900, (byte) 3, (byte) 3, (byte) 2, "Furnished", "Not Available"));
-        registerFlat(new FlatModel((short) 107, 450000, 1800, (byte) 4, (byte) 5, (byte) 3, "Unfurnished", "Available"));
-        registerFlat(new FlatModel((short) 108, 60000, 1200, (byte) 2, (byte) 1, (byte) 1, "Furnished", "Not Available"));
-        registerFlat(new FlatModel((short) 109, 200000, 1500, (byte) 2, (byte) 4, (byte) 2, "Unfurnished", "Available"));
-        registerFlat(new FlatModel((short) 110, 350000, 2200, (byte) 4, (byte) 6, (byte) 3, "Furnished", "Not Available"));
+        try {
+            tenantList.isEmpty();  // checking for null
+        } catch (NullPointerException ne) {
+            initialTenantData();
+        }
     }
 
     /**
-     * Import the object data into the table row
+     * Populates the JTable with the current list of flat records. Clears
+     * existing rows in the table model before adding new data.
      *
-     * @param tenant the object of containing the details of tenants
+     * @param flatList load the data to table
      */
-    private void registerTenant(TenantModel tenant) {
-        tenantList.add(tenant);
-        DefaultTableModel model = (DefaultTableModel) tblMangeTenant.getModel();
-        model.addRow(new Object[]{
-            tenant.getTenantId(), tenant.getName(), tenant.getAge(), tenant.getContact(),
-            tenant.getJoinDate(), tenant.getFlatId(), tenant.getGender()
-        });
+    private void loadFlatListToTable(List<FlatModel> flatList) {
+        DefaultTableModel model = (DefaultTableModel) tblManageFlat.getModel();
+        // Clear existing rows if needed
+        model.setRowCount(0);
+        // Populate the table with student data
+        for (FlatModel flat : flatList) {
+            model.addRow(new Object[]{
+                flat.getFlatId(), flat.getPrice(), flat.getSize(), flat.getLivingroom(),
+                flat.getBedroom(), flat.getKitchen(), flat.GetFurnising(), flat.GetFlatStatus()
+            });
+        }
     }
 
     /**
-     * Import the object data into the table row
+     * Populates the JTable with the current list of tenant records. Clears
+     * existing rows in the table model before adding new data.
      *
-     * @param flat the object of containing the details of flats
+     * @param tenantList load the data to table
      */
-    private void registerFlat(FlatModel flat) {
-        flatList.add(flat);
-        DefaultTableModel model = (DefaultTableModel) tblMangeFlat.getModel();
-        model.addRow(new Object[]{
-            flat.getFlatId(), flat.getPrice(), flat.getSize(), flat.getLivingroom(),
-            flat.getBedroom(), flat.getKitchen(), flat.GetFurnising(), flat.GetFlatStatus()
-        });
+    private void loadTenantListToTable(List<TenantModel> tenantList) {
+        DefaultTableModel model = (DefaultTableModel) tblManageTenant.getModel();
+        // Clear existing rows if needed
+        model.setRowCount(0);
+        // Populate the table with tenant data
+        for (TenantModel tenant : tenantList) {
+            model.addRow(new Object[]{
+                tenant.getTenantId(), tenant.getName(), tenant.getAge(), tenant.getContact(),
+                tenant.getJoinDate(), tenant.getFlatId(), tenant.getGender()
+            });
+        }
     }
 
     /**
@@ -564,7 +687,7 @@ public class Dashboard extends javax.swing.JFrame {
         menuPanelLabel.setBorder(null);
     }
     private void pnlMenuManageFlatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageFlatMouseClicked
-        new ManageFlat().setVisible(true);
+        new ManageFlat(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuManageFlatMouseClicked
 
@@ -577,7 +700,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuManageFlatMouseExited
 
     private void pnlMenuManageTenantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageTenantMouseClicked
-        new ManageTenant().setVisible(true);
+        new ManageTenant(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuManageTenantMouseClicked
 
@@ -590,7 +713,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuManageTenantMouseExited
 
     private void pnlMenuSortAndSearchFlatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuSortAndSearchFlatMouseClicked
-        new SortAndSearchFlat().setVisible(true);
+        new SortAndSearchFlat(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuSortAndSearchFlatMouseClicked
 
@@ -603,7 +726,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuSortAndSearchFlatMouseExited
 
     private void pnlMenuSortAndSearchTenantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuSortAndSearchTenantMouseClicked
-        new SortAndSearchTenant().setVisible(true);
+        new SortAndSearchTenant(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuSortAndSearchTenantMouseClicked
 
@@ -629,7 +752,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuSettingLogoutMouseExited
 
     private void pnlMenuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuHomeMouseClicked
-        new Home().setVisible(true);
+        new Home(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuHomeMouseClicked
 
@@ -653,6 +776,20 @@ public class Dashboard extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_lblLoginCloseMouseClicked
+
+    private void pnlMenuManageCleaningLog2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLog2MouseClicked
+        // TODO add your handling code here:
+        new CleaningLog(flatList, tenantList).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_pnlMenuManageCleaningLog2MouseClicked
+
+    private void pnlMenuManageCleaningLog2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLog2MouseEntered
+        mouseEnter(pnlMenuManageCleaningLog2, lblMenuManageCleaningLog2);
+    }//GEN-LAST:event_pnlMenuManageCleaningLog2MouseEntered
+
+    private void pnlMenuManageCleaningLog2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLog2MouseExited
+        mouseExit(pnlMenuManageCleaningLog2, lblMenuManageCleaningLog2);
+    }//GEN-LAST:event_pnlMenuManageCleaningLog2MouseExited
 
     /**
      * @param args the command line arguments
@@ -703,6 +840,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel lblMenuDashboardTitle;
     private javax.swing.JLabel lblMenuHomeIcon;
     private javax.swing.JLabel lblMenuHomeTitle;
+    private javax.swing.JLabel lblMenuManageCleaningLog2;
+    private javax.swing.JLabel lblMenuManageCleaningLogIcon2;
     private javax.swing.JLabel lblMenuManageFlatIcon;
     private javax.swing.JLabel lblMenuManageFlatTitle;
     private javax.swing.JLabel lblMenuManageLeftBoder;
@@ -734,6 +873,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel pnlMenu;
     private javax.swing.JPanel pnlMenuDashboard;
     private javax.swing.JPanel pnlMenuHome;
+    private javax.swing.JPanel pnlMenuManageCleaningLog2;
     private javax.swing.JPanel pnlMenuManageFlat;
     private javax.swing.JPanel pnlMenuManageTenant;
     private javax.swing.JPanel pnlMenuSettingLogout;
@@ -741,7 +881,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel pnlMenuSortAndSearchTenant;
     private javax.swing.JScrollPane scrlpnMangeFlatTable;
     private javax.swing.JScrollPane scrlpnMangeTenantTable;
-    private javax.swing.JTable tblMangeFlat;
-    private javax.swing.JTable tblMangeTenant;
+    private javax.swing.JTable tblManageFlat;
+    private javax.swing.JTable tblManageTenant;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@
  */
 package com.technoComplex.views;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,11 +13,15 @@ import javax.swing.JOptionPane;
  */
 public class LogIn extends javax.swing.JFrame {
 
+    private boolean isSelected;
+
     /**
      * Creates new form TechnoComplex
      */
     public LogIn() {
         initComponents();
+        passFldPassword.setEchoChar((char) 0);
+        isSelected = false;
     }
 
     /**
@@ -28,37 +33,17 @@ public class LogIn extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        Calamity = new javax.swing.JLabel();
         pnlLoginMain = new javax.swing.JPanel();
         lblUsernameIcon = new javax.swing.JLabel();
+        lblErroPassword = new javax.swing.JLabel();
+        lblErrorUsername = new javax.swing.JLabel();
         txtFldUsername = new javax.swing.JTextField();
         lblPasswordIcon = new javax.swing.JLabel();
+        lblShowPasswordIcon = new javax.swing.JLabel();
         passFldPassword = new javax.swing.JPasswordField();
         btnLogIn = new javax.swing.JButton();
-        btnSignUp = new javax.swing.JButton();
-        lblForgotPassword = new javax.swing.JLabel();
         lblLoginClose = new javax.swing.JLabel();
         lblBackgroundIcon = new javax.swing.JLabel();
-
-        jPanel2.setMaximumSize(new java.awt.Dimension(1706, 912));
-        jPanel2.setMinimumSize(new java.awt.Dimension(1706, 912));
-        jPanel2.setPreferredSize(new java.awt.Dimension(1706, 912));
-
-        Calamity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/background/Login.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Calamity, javax.swing.GroupLayout.PREFERRED_SIZE, 1706, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Calamity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jPanel2.getAccessibleContext().setAccessibleName("");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1706, 912));
@@ -78,20 +63,57 @@ public class LogIn extends javax.swing.JFrame {
         lblUsernameIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/user-profile-icon-free-vector.jpg"))); // NOI18N
         pnlLoginMain.add(lblUsernameIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 69, 59));
 
+        lblErroPassword.setForeground(new java.awt.Color(255, 0, 0));
+        pnlLoginMain.add(lblErroPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, -1, -1));
+
+        lblErrorUsername.setForeground(new java.awt.Color(255, 0, 0));
+        pnlLoginMain.add(lblErrorUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, -1, -1));
+
         txtFldUsername.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         txtFldUsername.setForeground(new java.awt.Color(169, 169, 172));
-        txtFldUsername.setText("Press the login button for access");
+        txtFldUsername.setText("Username");
         txtFldUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 119, 182)));
         txtFldUsername.setPreferredSize(new java.awt.Dimension(25, 25));
+        txtFldUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFldUsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFldUsernameFocusLost(evt);
+            }
+        });
         pnlLoginMain.add(txtFldUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 230, 41));
 
         lblPasswordIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/lock_18dp_000000_FILL0_wght100_GRAD0_opsz20.png"))); // NOI18N
         pnlLoginMain.add(lblPasswordIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 56, 53));
 
+        lblShowPasswordIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/hidePassword.png"))); // NOI18N
+        lblShowPasswordIcon.setToolTipText("");
+        lblShowPasswordIcon.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 119, 182)));
+        lblShowPasswordIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblShowPasswordIconMouseClicked(evt);
+            }
+        });
+        pnlLoginMain.add(lblShowPasswordIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 420, -1, -1));
+
         passFldPassword.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        passFldPassword.setText("jPasswordField1");
+        passFldPassword.setForeground(new java.awt.Color(169, 169, 172));
+        passFldPassword.setText("Password");
+        passFldPassword.setToolTipText("");
         passFldPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 119, 182)));
-        pnlLoginMain.add(passFldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 420, 230, 42));
+        passFldPassword.setMaximumSize(new java.awt.Dimension(200, 42));
+        passFldPassword.setMinimumSize(new java.awt.Dimension(200, 42));
+        passFldPassword.setPreferredSize(new java.awt.Dimension(200, 42));
+        passFldPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passFldPasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passFldPasswordFocusLost(evt);
+            }
+        });
+        pnlLoginMain.add(passFldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 420, -1, -1));
 
         btnLogIn.setBackground(new java.awt.Color(0, 119, 182));
         btnLogIn.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -101,16 +123,7 @@ public class LogIn extends javax.swing.JFrame {
                 btnLogInActionPerformed(evt);
             }
         });
-        pnlLoginMain.add(btnLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 520, 123, 44));
-
-        btnSignUp.setBackground(new java.awt.Color(0, 119, 182));
-        btnSignUp.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        btnSignUp.setText("SIgn Up");
-        pnlLoginMain.add(btnSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 520, 123, 44));
-
-        lblForgotPassword.setForeground(new java.awt.Color(20, 74, 134));
-        lblForgotPassword.setText("Forgot password?");
-        pnlLoginMain.add(lblForgotPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 490, 106, 20));
+        pnlLoginMain.add(btnLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, 170, 44));
 
         lblLoginClose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblLoginClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/close.png"))); // NOI18N
@@ -140,8 +153,36 @@ public class LogIn extends javax.swing.JFrame {
      * @param evt the event triggered by the login button click
      */
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
-        this.dispose();
-        new Home().setVisible(true);
+        boolean isValid = true;
+        if (txtFldUsername.getText().isEmpty() || txtFldUsername.getText().equals("Username")) {
+            txtFldUsername.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 2));
+            lblErrorUsername.setText("Enter Username");
+            isValid = false;
+        }
+        if (passFldPassword.getText().isEmpty() || passFldPassword.getText().equals("Password")) {
+            passFldPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 0, new java.awt.Color(255, 0, 0)));
+            lblShowPasswordIcon.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 2, new java.awt.Color(255, 0, 0)));
+            lblErroPassword.setText("Enter Password");
+            isValid = false;
+        }
+        if (isValid) {
+            if (txtFldUsername.getText().equals("admin")) {
+                if (!passFldPassword.getText().equals("admin")) {
+                    passFldPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 0, new java.awt.Color(255, 0, 0)));
+                    lblShowPasswordIcon.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 2, new java.awt.Color(255, 0, 0)));
+                    lblErroPassword.setText("Invalid Password");
+                    return;
+                }
+            } else {
+                txtFldUsername.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 2));
+                lblErrorUsername.setText("Invalid Username");
+
+                return;
+            }
+            this.dispose();
+            new Home().setVisible(true);
+        }
+
     }//GEN-LAST:event_btnLogInActionPerformed
     /**
      * Handles the mouse click event on the close label in the login window.
@@ -156,6 +197,82 @@ public class LogIn extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_lblLoginCloseMouseClicked
+
+    /**
+     * Event handler for the USername TextField focus gained. when user click on
+     * USername the empty space is set for writing and foreground changes to
+     * black
+     *
+     * @param evt the FocusEvent triggered by the USername TextField
+     */
+    private void txtFldUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFldUsernameFocusGained
+        if (txtFldUsername.getText().equals("Username")) { // User has not entered text yet
+            txtFldUsername.setForeground(Color.black);
+            txtFldUsername.setText("");
+        }
+    }//GEN-LAST:event_txtFldUsernameFocusGained
+
+    /**
+     * Event handler for the USername TextField focus lost. when user leave the
+     * field empty field text is set to USername in grey color
+     *
+     * @param evt the FocusEvent triggered by the USername TextField
+     */
+    private void txtFldUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFldUsernameFocusLost
+        if (txtFldUsername.getText().equals("")) {// User did not enter text
+            txtFldUsername.setForeground(new java.awt.Color(169, 169, 172)); // placeholder color
+            txtFldUsername.setText("Username");
+        }
+    }//GEN-LAST:event_txtFldUsernameFocusLost
+
+    /**
+     * Event handler for the Password PasswordField focus gained. when user
+     * click on Password the empty space is set for writing by not showing the
+     * character
+     *
+     * @param evt the FocusEvent triggered by the Password PasswordField
+     */
+    private void passFldPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFldPasswordFocusGained
+        if (passFldPassword.getText().equals("Password")) { // User has not entered text yet
+            passFldPassword.setForeground(Color.black);
+            passFldPassword.setText("");
+            passFldPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_passFldPasswordFocusGained
+
+    /**
+     * Event handler for the Password PasswordField focus lost. when user leave
+     * the field empty field text is set to Password in grey color by showing
+     * the character
+     *
+     * @param evt the FocusEvent triggered by the Password PasswordField
+     */
+    private void passFldPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFldPasswordFocusLost
+        if (passFldPassword.getText().equals("")) {// User did not enter text
+            passFldPassword.setForeground(new java.awt.Color(169, 169, 172)); // placeholder color
+            passFldPassword.setText("Password");
+            passFldPassword.setEchoChar((char) 0);
+        }
+    }//GEN-LAST:event_passFldPasswordFocusLost
+
+    /**
+     * Event handler for the ShowPasswordIcon label action. show the password
+     * field to user and the icon changed to hide password when pressed hide the
+     * password field
+     *
+     * @param evt the MouseEvent triggered by the ShowPasswordIcon label
+     */
+    private void lblShowPasswordIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblShowPasswordIconMouseClicked
+        if (isSelected) {
+            isSelected = false;
+            passFldPassword.setEchoChar((char) 0);
+            lblShowPasswordIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/showpassword.png")));
+        } else {
+            isSelected = true;
+            passFldPassword.setEchoChar('*');
+            lblShowPasswordIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/hidePassword.png")));
+        }
+    }//GEN-LAST:event_lblShowPasswordIconMouseClicked
 
     /**
      * @param args the command line arguments
@@ -194,14 +311,13 @@ public class LogIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Calamity;
     private javax.swing.JButton btnLogIn;
-    private javax.swing.JButton btnSignUp;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblBackgroundIcon;
-    private javax.swing.JLabel lblForgotPassword;
+    private javax.swing.JLabel lblErroPassword;
+    private javax.swing.JLabel lblErrorUsername;
     private javax.swing.JLabel lblLoginClose;
     private javax.swing.JLabel lblPasswordIcon;
+    private javax.swing.JLabel lblShowPasswordIcon;
     private javax.swing.JLabel lblUsernameIcon;
     private javax.swing.JPasswordField passFldPassword;
     private javax.swing.JPanel pnlLoginMain;

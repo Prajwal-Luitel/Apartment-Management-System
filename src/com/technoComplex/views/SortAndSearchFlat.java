@@ -1,25 +1,60 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.technoComplex.views;
 
+import com.technoComplex.controller.algorithms.MergeSort;
+import com.technoComplex.model.FlatModel;
+import com.technoComplex.model.TenantModel;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author prajw
+ * @author prajwal Luitel LMU Id 23048626
  */
 public class SortAndSearchFlat extends javax.swing.JFrame {
 
+    private List<FlatModel> flatList;
+    private List<TenantModel> tenantList;
+    private final MergeSort mergeSort;
+    private List<FlatModel> sortedFlatList;
+
+    private boolean isAscending;
+
     /**
-     * Creates new form SortAndSearchFlat
+     * Creates new form SortAndSearchFlat and populate tables with sorted flat
+     * data
      */
     public SortAndSearchFlat() {
         initComponents();
+        initializeData();
+        mergeSort = new MergeSort();
+        sortedFlatList = mergeSort.sort(flatList, 0, true);
+        loadListToTable(sortedFlatList);
+    }
+
+    /**
+     * Creates new form SortAndSearchFlat populate tables with sorted flat data
+     * obtained from other JFrame
+     *
+     * @param flatList flat data list from other JFrame
+     * @param tenantList tenant data list from other JFrame
+     */
+    public SortAndSearchFlat(List<FlatModel> flatList, List<TenantModel> tenantList) {
+        this.tenantList = new ArrayList(tenantList);
+        this.flatList = new ArrayList(flatList);
+        initComponents();
+        mergeSort = new MergeSort();
+        sortedFlatList = mergeSort.sort(flatList, 0, true);
+        loadListToTable(sortedFlatList);
     }
 
     /**
@@ -66,15 +101,23 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
         pnlMenuSettingLogout = new javax.swing.JPanel();
         lblMenuSettingLogoutIcon = new javax.swing.JLabel();
         lblMenuSettingLogoutTitle = new javax.swing.JLabel();
+        pnlMenuManageCleaningLog = new javax.swing.JPanel();
+        lblMenuManageCleaningLogIcon = new javax.swing.JLabel();
+        lblMenuManageCleaningLog = new javax.swing.JLabel();
         lblMenuBackgroundImage = new javax.swing.JLabel();
         lblLoginClose = new javax.swing.JLabel();
+        scrlpnSortedFlatTable = new javax.swing.JScrollPane();
+        tblSortedFlat = new javax.swing.JTable();
+        lblSortedFlatDetails = new javax.swing.JLabel();
+        cmbxFlatFields = new javax.swing.JComboBox<>();
+        btnAsecOrDesc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1706, 912));
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        pnlSortAndSearchFlatMain.setBackground(new java.awt.Color(232, 245, 255));
         pnlSortAndSearchFlatMain.setMaximumSize(new java.awt.Dimension(1706, 912));
         pnlSortAndSearchFlatMain.setMinimumSize(new java.awt.Dimension(1706, 912));
         pnlSortAndSearchFlatMain.setPreferredSize(new java.awt.Dimension(1706, 912));
@@ -217,15 +260,15 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
         pnlMenu.add(pnlMenuManageTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, -1, -1));
 
         lblMenuSortAndSearchLeftBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSortAndSearchLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 10));
+        pnlMenu.add(lblMenuSortAndSearchLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 100, 10));
 
         lblMenuSortAndSearchTitle.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         lblMenuSortAndSearchTitle.setForeground(new java.awt.Color(191, 191, 191));
         lblMenuSortAndSearchTitle.setText("Sort and Search");
-        pnlMenu.add(lblMenuSortAndSearchTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 160, 20));
+        pnlMenu.add(lblMenuSortAndSearchTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 160, 20));
 
         lblMenuSortAndSearchRightBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSortAndSearchRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, 120, 10));
+        pnlMenu.add(lblMenuSortAndSearchRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 520, 120, 10));
 
         pnlMenuSortAndSearchFlat.setBackground(new java.awt.Color(97,97,97,120));
         pnlMenuSortAndSearchFlat.setMaximumSize(new java.awt.Dimension(371, 60));
@@ -241,7 +284,7 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
         lblMenuSortAndSearchFlatTitle.setText("Flat");
         pnlMenuSortAndSearchFlat.add(lblMenuSortAndSearchFlatTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSortAndSearchFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, -1, -1));
+        pnlMenu.add(pnlMenuSortAndSearchFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, -1, -1));
 
         pnlMenuSortAndSearchTenant.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSortAndSearchTenant.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -268,18 +311,18 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
         lblMenuSortAndSearchTenantTitle.setText("Tenant");
         pnlMenuSortAndSearchTenant.add(lblMenuSortAndSearchTenantTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSortAndSearchTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, -1, -1));
+        pnlMenu.add(pnlMenuSortAndSearchTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, -1, -1));
 
         lblMenuSettingLeftBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSettingLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, 130, 10));
+        pnlMenu.add(lblMenuSettingLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 130, 10));
 
         lblMenuSettingTitle.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         lblMenuSettingTitle.setForeground(new java.awt.Color(191, 191, 191));
         lblMenuSettingTitle.setText("Setting");
-        pnlMenu.add(lblMenuSettingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 610, 70, 20));
+        pnlMenu.add(lblMenuSettingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 670, 70, 20));
 
         lblMenuSettingRightBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSettingRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 610, 160, 10));
+        pnlMenu.add(lblMenuSettingRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 670, 160, 10));
 
         pnlMenuSettingLogout.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSettingLogout.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -306,7 +349,33 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
         lblMenuSettingLogoutTitle.setText("Log Out");
         pnlMenuSettingLogout.add(lblMenuSettingLogoutTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSettingLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, -1, -1));
+        pnlMenu.add(pnlMenuSettingLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 690, -1, -1));
+
+        pnlMenuManageCleaningLog.setMinimumSize(new java.awt.Dimension(371, 60));
+        pnlMenuManageCleaningLog.setOpaque(false);
+        pnlMenuManageCleaningLog.setPreferredSize(new java.awt.Dimension(371, 60));
+        pnlMenuManageCleaningLog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLogMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLogMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLogMouseExited(evt);
+            }
+        });
+        pnlMenuManageCleaningLog.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblMenuManageCleaningLogIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/cleaninglog.png"))); // NOI18N
+        pnlMenuManageCleaningLog.add(lblMenuManageCleaningLogIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 60));
+
+        lblMenuManageCleaningLog.setFont(new java.awt.Font("Poppins", 0, 28)); // NOI18N
+        lblMenuManageCleaningLog.setForeground(new java.awt.Color(255, 255, 255));
+        lblMenuManageCleaningLog.setText("Cleaning Log");
+        pnlMenuManageCleaningLog.add(lblMenuManageCleaningLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 11, -1, -1));
+
+        pnlMenu.add(pnlMenuManageCleaningLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, -1, -1));
 
         lblMenuBackgroundImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/background/fd.png"))); // NOI18N
         pnlMenu.add(lblMenuBackgroundImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -323,11 +392,153 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
         });
         pnlSortAndSearchFlatMain.add(lblLoginClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(1650, 0, 50, 50));
 
+        scrlpnSortedFlatTable.setBackground(new java.awt.Color(0, 255, 204));
+        scrlpnSortedFlatTable.setForeground(new java.awt.Color(255, 255, 255));
+        scrlpnSortedFlatTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        tblSortedFlat.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "FlatId", "Price", "Size", "Livingroom", "Bedroom", "Kitchen", "Furnish", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Short.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.Byte.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblSortedFlat.setRowHeight(30);
+        tblSortedFlat.getTableHeader().setReorderingAllowed(false);
+        scrlpnSortedFlatTable.setViewportView(tblSortedFlat);
+        if (tblSortedFlat.getColumnModel().getColumnCount() > 0) {
+            tblSortedFlat.getColumnModel().getColumn(0).setResizable(false);
+            tblSortedFlat.getColumnModel().getColumn(1).setResizable(false);
+            tblSortedFlat.getColumnModel().getColumn(2).setResizable(false);
+            tblSortedFlat.getColumnModel().getColumn(3).setResizable(false);
+            tblSortedFlat.getColumnModel().getColumn(4).setResizable(false);
+            tblSortedFlat.getColumnModel().getColumn(5).setResizable(false);
+            tblSortedFlat.getColumnModel().getColumn(6).setResizable(false);
+            tblSortedFlat.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        pnlSortAndSearchFlatMain.add(scrlpnSortedFlatTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 1210, 460));
+
+        lblSortedFlatDetails.setFont(new java.awt.Font("Poppins", 0, 38)); // NOI18N
+        lblSortedFlatDetails.setForeground(new java.awt.Color(102, 153, 255));
+        lblSortedFlatDetails.setText("Sorted Flat Details");
+        pnlSortAndSearchFlatMain.add(lblSortedFlatDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 170, 440, 60));
+
+        cmbxFlatFields.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        cmbxFlatFields.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FlatId", "Price", "Size" }));
+        cmbxFlatFields.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbxFlatFieldsActionPerformed(evt);
+            }
+        });
+        pnlSortAndSearchFlatMain.add(cmbxFlatFields, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 50, 150, 50));
+
+        btnAsecOrDesc.setBackground(new java.awt.Color(102, 153, 255));
+        btnAsecOrDesc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/ascending.png"))); // NOI18N
+        btnAsecOrDesc.setText("Ascending");
+        btnAsecOrDesc.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAsecOrDesc.setPreferredSize(new java.awt.Dimension(150, 50));
+        btnAsecOrDesc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsecOrDescActionPerformed(evt);
+            }
+        });
+        pnlSortAndSearchFlatMain.add(btnAsecOrDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 50, 140, -1));
+
         getContentPane().add(pnlSortAndSearchFlatMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-     /**
+
+    /**
+     * Populate the flat data in flat list
+     */
+    private void initialFlatData() {
+        flatList = new ArrayList<>();
+        flatList.add(new FlatModel((short) 106, 120000, 900, (byte) 3, (byte) 3, (byte) 2, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 107, 450000, 1800, (byte) 4, (byte) 5, (byte) 3, "Unfurnished", "Available"));
+        flatList.add(new FlatModel((short) 108, 60000, 1200, (byte) 2, (byte) 1, (byte) 1, "Furnished", "Available"));
+        flatList.add(new FlatModel((short) 101, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 102, 150000, 800, (byte) 2, (byte) 2, (byte) 1, "Unfurnished", "Not Available"));
+        flatList.add(new FlatModel((short) 103, 300000, 1200, (byte) 3, (byte) 4, (byte) 2, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 109, 200000, 1500, (byte) 2, (byte) 4, (byte) 2, "Unfurnished", "Available"));
+        flatList.add(new FlatModel((short) 110, 350000, 2200, (byte) 4, (byte) 6, (byte) 3, "Furnished", "Available"));
+        flatList.add(new FlatModel((short) 100, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 104, 500000, 2000, (byte) 4, (byte) 5, (byte) 3, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 105, 70000, 600, (byte) 2, (byte) 1, (byte) 1, "Unfurnished", "Not Available"));
+    }
+
+    /**
+     * Populate the tenant data in tenant list
+     */
+    private void initialTenantData() {
+        tenantList = new ArrayList<>();
+        tenantList.add(new TenantModel((short) 102, "Sita Pokherel", (short) 30, "9823456781", "2020-06-10", (short) 100, "Female"));
+        tenantList.add(new TenantModel((short) 103, "Hari Khadka", (short) 40, "9834567892", "2018-08-20", (short) 101, "Male"));
+        tenantList.add(new TenantModel((short) 104, "Gita Thapa", (short) 22, "9845678903", "2021-01-25", (short) 102, "Female"));
+        tenantList.add(new TenantModel((short) 105, "Krishna Lama", (short) 35, "9856789014", "2022-11-05", (short) 103, "Male"));
+        tenantList.add(new TenantModel((short) 107, "Bikash Kafle", (short) 45, "9878901236", "2024-07-18", (short) 104, "Male"));
+        tenantList.add(new TenantModel((short) 108, "Saraswati Rai", (short) 32, "9889012347", "2020-04-12", (short) 105, "Female"));
+        tenantList.add(new TenantModel((short) 110, "Mina Dahal", (short) 27, "9801234569", "2018-12-10", (short) 106, "Female"));
+//        tenantList.add(new TenantModel((short) 109, "Prakash Karki", (short) 50, "9890123458", "2023-02-28", (short) 109, "Male"));
+//        tenantList.add(new TenantModel((short) 101, "Ram Shrestha", (short) 25, "9812345670", "2019-03-15", (short) 101, "Male"));
+//        tenantList.add(new TenantModel((short) 106, "Rita Koirala", (short) 28, "9867890125", "2023-09-30", (short) 106, "Female"));
+    }
+
+    /**
+     * Populates the List with the stored default flat and tenant data.
+     * Initialize the List with default value only when the list is null
+     */
+    private void initializeData() {
+        try {
+            flatList.isEmpty();
+        } catch (NullPointerException ne) {
+            initialFlatData();
+        }
+
+        try {
+            tenantList.isEmpty();
+        } catch (NullPointerException ne) {
+            initialTenantData();
+        }
+    }
+
+    /**
+     * Populates the JTable with the current list of flat records. Clears
+     * existing rows in the table model before adding new data.
+     *
+     * @param flatList load the data to table
+     */
+    private void loadListToTable(List<FlatModel> flatList) {
+        DefaultTableModel model = (DefaultTableModel) tblSortedFlat.getModel();
+        // Clear existing rows if needed
+        model.setRowCount(0);
+        // Populate the table with student data
+        for (FlatModel flat : flatList) {
+            model.addRow(new Object[]{
+                flat.getFlatId(), flat.getPrice(), flat.getSize(), flat.getLivingroom(),
+                flat.getBedroom(), flat.getKitchen(), flat.GetFurnising(), flat.GetFlatStatus()
+            });
+        }
+    }
+
+    /**
      * Turn the background light and show underline for label when mouse entered
      * the menu item i.e hover effect
      *
@@ -356,7 +567,7 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
         menuPanelLabel.setBorder(null);
     }
     private void pnlMenuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuHomeMouseClicked
-        new Home().setVisible(true);
+        new Home(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuHomeMouseClicked
 
@@ -369,7 +580,7 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuHomeMouseExited
 
     private void pnlMenuDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuDashboardMouseClicked
-        new Dashboard().setVisible(true);
+        new Dashboard(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuDashboardMouseClicked
 
@@ -382,7 +593,7 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuDashboardMouseExited
 
     private void pnlMenuManageFlatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageFlatMouseClicked
-        new ManageFlat().setVisible(true);
+        new ManageFlat(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuManageFlatMouseClicked
 
@@ -395,7 +606,7 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuManageFlatMouseExited
 
     private void pnlMenuSortAndSearchTenantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuSortAndSearchTenantMouseClicked
-        new SortAndSearchTenant().setVisible(true);
+        new SortAndSearchTenant(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuSortAndSearchTenantMouseClicked
 
@@ -421,7 +632,7 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuSettingLogoutMouseExited
 
     private void pnlMenuManageTenantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageTenantMouseClicked
-        new ManageTenant().setVisible(true);
+        new ManageTenant(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuManageTenantMouseClicked
 
@@ -434,11 +645,59 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuManageTenantMouseExited
 
     private void lblLoginCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginCloseMouseClicked
-        int closeSystem = JOptionPane.showConfirmDialog(pnlSortAndSearchFlatMain,"Do you want to close the \nTecnho Management System","Close System",JOptionPane.YES_NO_OPTION);
-        if(closeSystem == JOptionPane.YES_OPTION){ 
+        int closeSystem = JOptionPane.showConfirmDialog(pnlSortAndSearchFlatMain, "Do you want to close the \nTecnho Management System", "Close System", JOptionPane.YES_NO_OPTION);
+        if (closeSystem == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }//GEN-LAST:event_lblLoginCloseMouseClicked
+
+    /**
+     * Event handler for the FlatFields COmboBox action. sort the list according
+     * to the field in the ComboBox
+     *
+     * @param evt the ActionEvent triggered by the FlatFields COmboBox
+     */
+    private void cmbxFlatFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbxFlatFieldsActionPerformed
+        sortedFlatList = mergeSort.sort(flatList, cmbxFlatFields.getSelectedIndex(), isAscending);
+        loadListToTable(sortedFlatList);
+    }//GEN-LAST:event_cmbxFlatFieldsActionPerformed
+
+    /**
+     * Event handler for the AsecOrDesc button action. sort the list according
+     * to the icon in the button and the icon is changed after sort
+     *
+     * @param evt the ActionEvent triggered by the AsecOrDesc button
+     */
+    private void btnAsecOrDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsecOrDescActionPerformed
+        //when button icon is ascending
+        if (isAscending) {
+            btnAsecOrDesc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/descending.png"))); // NOI18N
+            btnAsecOrDesc.setText("Descending");
+            isAscending = false;
+            sortedFlatList = mergeSort.sort(flatList, cmbxFlatFields.getSelectedIndex(), isAscending);
+            loadListToTable(sortedFlatList);
+        } else {
+            // button icon is descending
+            btnAsecOrDesc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/ascending.png"))); // NOI18N
+            btnAsecOrDesc.setText("Ascending");
+            isAscending = true;
+            sortedFlatList = mergeSort.sort(flatList, cmbxFlatFields.getSelectedIndex(), isAscending);
+            loadListToTable(sortedFlatList);
+        }
+    }//GEN-LAST:event_btnAsecOrDescActionPerformed
+
+    private void pnlMenuManageCleaningLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLogMouseClicked
+        new CleaningLog(flatList, tenantList).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_pnlMenuManageCleaningLogMouseClicked
+
+    private void pnlMenuManageCleaningLogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLogMouseEntered
+        mouseEnter(pnlMenuManageCleaningLog, lblMenuManageCleaningLog);
+    }//GEN-LAST:event_pnlMenuManageCleaningLogMouseEntered
+
+    private void pnlMenuManageCleaningLogMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLogMouseExited
+        mouseExit(pnlMenuManageCleaningLog, lblMenuManageCleaningLog);
+    }//GEN-LAST:event_pnlMenuManageCleaningLogMouseExited
 
     /**
      * @param args the command line arguments
@@ -476,12 +735,16 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsecOrDesc;
+    private javax.swing.JComboBox<String> cmbxFlatFields;
     private javax.swing.JLabel lblLoginClose;
     private javax.swing.JLabel lblMenuBackgroundImage;
     private javax.swing.JLabel lblMenuDashboardIcon;
     private javax.swing.JLabel lblMenuDashboardTitle;
     private javax.swing.JLabel lblMenuHomeIcon;
     private javax.swing.JLabel lblMenuHomeTitle;
+    private javax.swing.JLabel lblMenuManageCleaningLog;
+    private javax.swing.JLabel lblMenuManageCleaningLogIcon;
     private javax.swing.JLabel lblMenuManageFlatIcon;
     private javax.swing.JLabel lblMenuManageFlatTitle;
     private javax.swing.JLabel lblMenuManageLeftBoder;
@@ -504,14 +767,18 @@ public class SortAndSearchFlat extends javax.swing.JFrame {
     private javax.swing.JLabel lblMenuTitle;
     private javax.swing.JLabel lblMenuTitleBoder;
     private javax.swing.JLabel lblMenuTitleIcon;
+    private javax.swing.JLabel lblSortedFlatDetails;
     private javax.swing.JPanel pnlMenu;
     private javax.swing.JPanel pnlMenuDashboard;
     private javax.swing.JPanel pnlMenuHome;
+    private javax.swing.JPanel pnlMenuManageCleaningLog;
     private javax.swing.JPanel pnlMenuManageFlat;
     private javax.swing.JPanel pnlMenuManageTenant;
     private javax.swing.JPanel pnlMenuSettingLogout;
     private javax.swing.JPanel pnlMenuSortAndSearchFlat;
     private javax.swing.JPanel pnlMenuSortAndSearchTenant;
     private javax.swing.JPanel pnlSortAndSearchFlatMain;
+    private javax.swing.JScrollPane scrlpnSortedFlatTable;
+    private javax.swing.JTable tblSortedFlat;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
 package com.technoComplex.views;
 
 import com.technoComplex.model.FlatModel;
+import com.technoComplex.model.TenantModel;
 import com.technoComplex.util.ValidationUtil;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class ManageFlat extends javax.swing.JFrame {
 
     private List<FlatModel> flatList;
+    private List<TenantModel> tenantList;
 
     /**
      * Creates new form ManageFlat and add the table data initially
@@ -29,6 +31,21 @@ public class ManageFlat extends javax.swing.JFrame {
     public ManageFlat() {
         initComponents();
         initializeData();
+        loadListToTable(flatList);
+    }
+
+    /**
+     * Creates new form ManageFlat populate table with the flat data obtained
+     * from other JFrame and store tenant data in list.
+     *
+     * @param flatList flat data list from other JFrame
+     * @param tenantList tenant data list from other JFrame
+     */
+    public ManageFlat(List<FlatModel> flatList, List<TenantModel> tenantList) {
+        this.flatList = new ArrayList(flatList);
+        this.tenantList = new ArrayList(tenantList);
+        initComponents();
+        loadListToTable(flatList);
     }
 
     /**
@@ -76,11 +93,14 @@ public class ManageFlat extends javax.swing.JFrame {
         pnlMenuSettingLogout = new javax.swing.JPanel();
         lblMenuSettingLogoutIcon = new javax.swing.JLabel();
         lblMenuSettingLogoutTitle = new javax.swing.JLabel();
+        pnlMenuManageCleaningLog = new javax.swing.JPanel();
+        lblMenuManageCleaningLogIcon = new javax.swing.JLabel();
+        lblMenuManageCleaningLog = new javax.swing.JLabel();
         lblMenuBackgroundImage = new javax.swing.JLabel();
         lblViewFlatDetails = new javax.swing.JLabel();
         lblMangeFlatTitle = new javax.swing.JLabel();
         scrlpnMangeFlatTable = new javax.swing.JScrollPane();
-        tblMangeFlat = new javax.swing.JTable();
+        tblManageFlat = new javax.swing.JTable();
         lblMangeFlatClose = new javax.swing.JLabel();
         lblFlatId = new javax.swing.JLabel();
         lblColonFlatId = new javax.swing.JLabel();
@@ -249,15 +269,15 @@ public class ManageFlat extends javax.swing.JFrame {
         pnlMenu.add(pnlMenuManageTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, -1, -1));
 
         lblMenuSortAndSearchLeftBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSortAndSearchLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 100, 10));
+        pnlMenu.add(lblMenuSortAndSearchLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 100, 10));
 
         lblMenuSortAndSearchTitle.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         lblMenuSortAndSearchTitle.setForeground(new java.awt.Color(191, 191, 191));
         lblMenuSortAndSearchTitle.setText("Sort and Search");
-        pnlMenu.add(lblMenuSortAndSearchTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 160, 20));
+        pnlMenu.add(lblMenuSortAndSearchTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 520, 160, 20));
 
         lblMenuSortAndSearchRightBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSortAndSearchRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, 120, 10));
+        pnlMenu.add(lblMenuSortAndSearchRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 520, 120, 10));
 
         pnlMenuSortAndSearchFlat.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSortAndSearchFlat.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -284,7 +304,7 @@ public class ManageFlat extends javax.swing.JFrame {
         lblMenuSortAndSearchFlatTitle.setText("Flat");
         pnlMenuSortAndSearchFlat.add(lblMenuSortAndSearchFlatTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSortAndSearchFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, -1, -1));
+        pnlMenu.add(pnlMenuSortAndSearchFlat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, -1, -1));
 
         pnlMenuSortAndSearchTenant.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSortAndSearchTenant.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -311,18 +331,18 @@ public class ManageFlat extends javax.swing.JFrame {
         lblMenuSortAndSearchTenantTitle.setText("Tenant");
         pnlMenuSortAndSearchTenant.add(lblMenuSortAndSearchTenantTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSortAndSearchTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, -1, -1));
+        pnlMenu.add(pnlMenuSortAndSearchTenant, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, -1, -1));
 
         lblMenuSettingLeftBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSettingLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, 130, 10));
+        pnlMenu.add(lblMenuSettingLeftBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 130, 10));
 
         lblMenuSettingTitle.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
         lblMenuSettingTitle.setForeground(new java.awt.Color(191, 191, 191));
         lblMenuSettingTitle.setText("Setting");
-        pnlMenu.add(lblMenuSettingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 610, 70, 20));
+        pnlMenu.add(lblMenuSettingTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 670, 70, 20));
 
         lblMenuSettingRightBoder.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(255, 255, 255)));
-        pnlMenu.add(lblMenuSettingRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 610, 160, 10));
+        pnlMenu.add(lblMenuSettingRightBoder, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 670, 160, 10));
 
         pnlMenuSettingLogout.setMaximumSize(new java.awt.Dimension(371, 60));
         pnlMenuSettingLogout.setMinimumSize(new java.awt.Dimension(371, 60));
@@ -349,7 +369,33 @@ public class ManageFlat extends javax.swing.JFrame {
         lblMenuSettingLogoutTitle.setText("Log Out");
         pnlMenuSettingLogout.add(lblMenuSettingLogoutTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 8, -1, -1));
 
-        pnlMenu.add(pnlMenuSettingLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, -1, -1));
+        pnlMenu.add(pnlMenuSettingLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 690, -1, -1));
+
+        pnlMenuManageCleaningLog.setMinimumSize(new java.awt.Dimension(371, 60));
+        pnlMenuManageCleaningLog.setOpaque(false);
+        pnlMenuManageCleaningLog.setPreferredSize(new java.awt.Dimension(371, 60));
+        pnlMenuManageCleaningLog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLogMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLogMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlMenuManageCleaningLogMouseExited(evt);
+            }
+        });
+        pnlMenuManageCleaningLog.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblMenuManageCleaningLogIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/icons/cleaninglog.png"))); // NOI18N
+        pnlMenuManageCleaningLog.add(lblMenuManageCleaningLogIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 60));
+
+        lblMenuManageCleaningLog.setFont(new java.awt.Font("Poppins", 0, 28)); // NOI18N
+        lblMenuManageCleaningLog.setForeground(new java.awt.Color(255, 255, 255));
+        lblMenuManageCleaningLog.setText("Cleaning Log");
+        pnlMenuManageCleaningLog.add(lblMenuManageCleaningLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 11, -1, -1));
+
+        pnlMenu.add(pnlMenuManageCleaningLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, -1, -1));
 
         lblMenuBackgroundImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/technoComplex/resources/image/background/fd.png"))); // NOI18N
         pnlMenu.add(lblMenuBackgroundImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -359,18 +405,18 @@ public class ManageFlat extends javax.swing.JFrame {
         lblViewFlatDetails.setFont(new java.awt.Font("Poppins", 0, 38)); // NOI18N
         lblViewFlatDetails.setForeground(new java.awt.Color(102, 153, 255));
         lblViewFlatDetails.setText("View Flat Details");
-        pnlManageFlatMain.add(lblViewFlatDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 440, 60));
+        pnlManageFlatMain.add(lblViewFlatDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, 440, 60));
 
         lblMangeFlatTitle.setFont(new java.awt.Font("Poppins", 0, 36)); // NOI18N
         lblMangeFlatTitle.setForeground(new java.awt.Color(102, 153, 255));
         lblMangeFlatTitle.setText("Manage Flat");
-        pnlManageFlatMain.add(lblMangeFlatTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 340, 230, 60));
+        pnlManageFlatMain.add(lblMangeFlatTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 340, 230, 60));
 
         scrlpnMangeFlatTable.setBackground(new java.awt.Color(0, 255, 204));
         scrlpnMangeFlatTable.setForeground(new java.awt.Color(255, 255, 255));
         scrlpnMangeFlatTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        tblMangeFlat.setModel(new javax.swing.table.DefaultTableModel(
+        tblManageFlat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -393,17 +439,18 @@ public class ManageFlat extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblMangeFlat.getTableHeader().setReorderingAllowed(false);
-        scrlpnMangeFlatTable.setViewportView(tblMangeFlat);
-        if (tblMangeFlat.getColumnModel().getColumnCount() > 0) {
-            tblMangeFlat.getColumnModel().getColumn(0).setResizable(false);
-            tblMangeFlat.getColumnModel().getColumn(1).setResizable(false);
-            tblMangeFlat.getColumnModel().getColumn(2).setResizable(false);
-            tblMangeFlat.getColumnModel().getColumn(3).setResizable(false);
-            tblMangeFlat.getColumnModel().getColumn(4).setResizable(false);
-            tblMangeFlat.getColumnModel().getColumn(5).setResizable(false);
-            tblMangeFlat.getColumnModel().getColumn(6).setResizable(false);
-            tblMangeFlat.getColumnModel().getColumn(7).setResizable(false);
+        tblManageFlat.setRowHeight(30);
+        tblManageFlat.getTableHeader().setReorderingAllowed(false);
+        scrlpnMangeFlatTable.setViewportView(tblManageFlat);
+        if (tblManageFlat.getColumnModel().getColumnCount() > 0) {
+            tblManageFlat.getColumnModel().getColumn(0).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(1).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(2).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(3).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(4).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(5).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(6).setResizable(false);
+            tblManageFlat.getColumnModel().getColumn(7).setResizable(false);
         }
 
         pnlManageFlatMain.add(scrlpnMangeFlatTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 1210, 250));
@@ -420,29 +467,35 @@ public class ManageFlat extends javax.swing.JFrame {
 
         lblFlatId.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblFlatId.setText("Flat Id   ");
-        pnlManageFlatMain.add(lblFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 430, 70, -1));
+        pnlManageFlatMain.add(lblFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 430, 70, -1));
 
         lblColonFlatId.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblColonFlatId.setText(":");
-        pnlManageFlatMain.add(lblColonFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 430, 10, -1));
-        pnlManageFlatMain.add(txtFldFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 120, 40));
+        pnlManageFlatMain.add(lblColonFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 430, 10, -1));
+
+        txtFldFlatId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFldFlatIdActionPerformed(evt);
+            }
+        });
+        pnlManageFlatMain.add(txtFldFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 420, 150, 40));
 
         lblColonSize.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblColonSize.setText(":");
-        pnlManageFlatMain.add(lblColonSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 540, 10, -1));
+        pnlManageFlatMain.add(lblColonSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 570, 10, -1));
 
         lblFlatStatus.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblFlatStatus.setText("Flat Status");
-        pnlManageFlatMain.add(lblFlatStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 670, -1, -1));
-        pnlManageFlatMain.add(txtFldSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 540, 250, 40));
+        pnlManageFlatMain.add(lblFlatStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 660, -1, -1));
+        pnlManageFlatMain.add(txtFldSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 570, 290, 40));
 
         lblLivingRoom.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblLivingRoom.setText("Living Room");
-        pnlManageFlatMain.add(lblLivingRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 490, -1, -1));
+        pnlManageFlatMain.add(lblLivingRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 430, -1, -1));
 
         lblColonPrice.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblColonPrice.setText(":");
-        pnlManageFlatMain.add(lblColonPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 490, 10, -1));
+        pnlManageFlatMain.add(lblColonPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 500, 10, -1));
 
         sldLivingRoom.setBackground(new java.awt.Color(204, 204, 204));
         sldLivingRoom.setForeground(new java.awt.Color(0, 51, 255));
@@ -455,11 +508,11 @@ public class ManageFlat extends javax.swing.JFrame {
         sldLivingRoom.setToolTipText("");
         sldLivingRoom.setValue(1);
         sldLivingRoom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlManageFlatMain.add(sldLivingRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 480, 220, -1));
+        pnlManageFlatMain.add(sldLivingRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 420, 250, -1));
 
         lblPrice.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblPrice.setText("Price");
-        pnlManageFlatMain.add(lblPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 490, -1, -1));
+        pnlManageFlatMain.add(lblPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 500, -1, -1));
 
         sldBedroom.setForeground(new java.awt.Color(0, 51, 255));
         sldBedroom.setMajorTickSpacing(1);
@@ -470,11 +523,11 @@ public class ManageFlat extends javax.swing.JFrame {
         sldBedroom.setSnapToTicks(true);
         sldBedroom.setValue(1);
         sldBedroom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlManageFlatMain.add(sldBedroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 560, 220, -1));
+        pnlManageFlatMain.add(sldBedroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 500, 250, -1));
 
         lblBedroom.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblBedroom.setText("Bedroom");
-        pnlManageFlatMain.add(lblBedroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 560, -1, -1));
+        pnlManageFlatMain.add(lblBedroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 500, -1, -1));
 
         sldKitchen.setBackground(new java.awt.Color(204, 204, 204));
         sldKitchen.setForeground(new java.awt.Color(0, 51, 255));
@@ -486,19 +539,21 @@ public class ManageFlat extends javax.swing.JFrame {
         sldKitchen.setSnapToTicks(true);
         sldKitchen.setValue(1);
         sldKitchen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlManageFlatMain.add(sldKitchen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 640, 220, -1));
+        pnlManageFlatMain.add(sldKitchen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 580, 250, -1));
 
         lblKitchen.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblKitchen.setText("Kitchen");
-        pnlManageFlatMain.add(lblKitchen, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 630, -1, -1));
+        pnlManageFlatMain.add(lblKitchen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 570, -1, -1));
 
         btnGrpFlatStatus.add(rdoBtnAvailable);
+        rdoBtnAvailable.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         rdoBtnAvailable.setText("Available");
-        pnlManageFlatMain.add(rdoBtnAvailable, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 670, -1, -1));
+        pnlManageFlatMain.add(rdoBtnAvailable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 660, 110, 40));
 
         btnGrpFlatStatus.add(rdoBtnNotAvailable);
+        rdoBtnNotAvailable.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         rdoBtnNotAvailable.setText("Not available");
-        pnlManageFlatMain.add(rdoBtnNotAvailable, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 670, -1, -1));
+        pnlManageFlatMain.add(rdoBtnNotAvailable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1460, 660, 130, 40));
 
         btnUpdate.setBackground(new java.awt.Color(102, 153, 255));
         btnUpdate.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
@@ -508,20 +563,31 @@ public class ManageFlat extends javax.swing.JFrame {
                 btnUpdateActionPerformed(evt);
             }
         });
-        pnlManageFlatMain.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 780, 120, 60));
+        pnlManageFlatMain.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 780, 120, 60));
 
         comBoxFurnishing.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Furnished", "Unfurnished" }));
         comBoxFurnishing.setToolTipText("");
-        pnlManageFlatMain.add(comBoxFurnishing, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 620, -1, -1));
+        comBoxFurnishing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comBoxFurnishingActionPerformed(evt);
+            }
+        });
+        pnlManageFlatMain.add(comBoxFurnishing, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 660, 120, 30));
 
         lblSize.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblSize.setText("Size");
-        pnlManageFlatMain.add(lblSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 540, -1, -1));
+        pnlManageFlatMain.add(lblSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 570, -1, -1));
 
         lblFurnishing.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblFurnishing.setText("Furnishing");
-        pnlManageFlatMain.add(lblFurnishing, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 620, -1, -1));
-        pnlManageFlatMain.add(txtFldPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 250, 40));
+        pnlManageFlatMain.add(lblFurnishing, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 660, -1, -1));
+
+        txtFldPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFldPriceActionPerformed(evt);
+            }
+        });
+        pnlManageFlatMain.add(txtFldPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 500, 290, 40));
 
         btnDelete.setBackground(new java.awt.Color(102, 153, 255));
         btnDelete.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
@@ -531,7 +597,7 @@ public class ManageFlat extends javax.swing.JFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-        pnlManageFlatMain.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 780, 120, 60));
+        pnlManageFlatMain.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 780, 120, 60));
 
         btnAdd.setBackground(new java.awt.Color(102, 153, 255));
         btnAdd.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
@@ -545,41 +611,76 @@ public class ManageFlat extends javax.swing.JFrame {
 
         lblErrorMsgSize.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblErrorMsgSize.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageFlatMain.add(lblErrorMsgSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 520, -1, -1));
+        pnlManageFlatMain.add(lblErrorMsgSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 550, -1, -1));
 
         lblErrorMsgFlatId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblErrorMsgFlatId.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageFlatMain.add(lblErrorMsgFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 400, -1, -1));
+        lblErrorMsgFlatId.setMaximumSize(new java.awt.Dimension(250, 250));
+        pnlManageFlatMain.add(lblErrorMsgFlatId, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, -1, -1));
 
         lblErrorMsgPrice.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblErrorMsgPrice.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageFlatMain.add(lblErrorMsgPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 460, -1, -1));
+        pnlManageFlatMain.add(lblErrorMsgPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, -1, -1));
 
         lblErrorMsgFlatStatus.setForeground(new java.awt.Color(255, 0, 0));
-        pnlManageFlatMain.add(lblErrorMsgFlatStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 650, -1, -1));
+        pnlManageFlatMain.add(lblErrorMsgFlatStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 640, -1, -1));
 
         getContentPane().add(pnlManageFlatMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     /**
-     * Initializes the application's data, including the rent list and table.
-     * Populates the rent list with sample data for demonstration purposes.
+     * Populate the flat data in flat list
+     */
+    private void initialFlatData() {
+        flatList = new ArrayList<>();
+        flatList.add(new FlatModel((short) 106, 120000, 900, (byte) 3, (byte) 3, (byte) 2, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 107, 450000, 1800, (byte) 4, (byte) 5, (byte) 3, "Unfurnished", "Available"));
+        flatList.add(new FlatModel((short) 108, 60000, 1200, (byte) 2, (byte) 1, (byte) 1, "Furnished", "Available"));
+        flatList.add(new FlatModel((short) 101, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 102, 150000, 800, (byte) 2, (byte) 2, (byte) 1, "Unfurnished", "Not Available"));
+        flatList.add(new FlatModel((short) 103, 300000, 1200, (byte) 3, (byte) 4, (byte) 2, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 109, 200000, 1500, (byte) 2, (byte) 4, (byte) 2, "Unfurnished", "Available"));
+        flatList.add(new FlatModel((short) 110, 350000, 2200, (byte) 4, (byte) 6, (byte) 3, "Furnished", "Available"));
+        flatList.add(new FlatModel((short) 100, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 104, 500000, 2000, (byte) 4, (byte) 5, (byte) 3, "Furnished", "Not Available"));
+        flatList.add(new FlatModel((short) 105, 70000, 600, (byte) 2, (byte) 1, (byte) 1, "Unfurnished", "Not Available"));
+    }
+
+    /**
+     * Populate the tenant data in tenant list
+     */
+    private void initialTenantData() {
+        tenantList = new ArrayList<>();
+        tenantList.add(new TenantModel((short) 102, "Sita Pokherel", (short) 30, "9823456781", "2020-06-10", (short) 100, "Female"));
+        tenantList.add(new TenantModel((short) 103, "Hari Khadka", (short) 40, "9834567892", "2018-08-20", (short) 101, "Male"));
+        tenantList.add(new TenantModel((short) 104, "Gita Thapa", (short) 22, "9845678903", "2021-01-25", (short) 102, "Female"));
+        tenantList.add(new TenantModel((short) 105, "Krishna Lama", (short) 35, "9856789014", "2022-11-05", (short) 103, "Male"));
+        tenantList.add(new TenantModel((short) 107, "Bikash Kafle", (short) 45, "9878901236", "2024-07-18", (short) 104, "Male"));
+        tenantList.add(new TenantModel((short) 108, "Saraswati Rai", (short) 32, "9889012347", "2020-04-12", (short) 105, "Female"));
+        tenantList.add(new TenantModel((short) 110, "Mina Dahal", (short) 27, "9801234569", "2018-12-10", (short) 106, "Female"));
+//        tenantList.add(new TenantModel((short) 109, "Prakash Karki", (short) 50, "9890123458", "2023-02-28", (short) 109, "Male"));
+//        tenantList.add(new TenantModel((short) 101, "Ram Shrestha", (short) 25, "9812345670", "2019-03-15", (short) 101, "Male"));
+//        tenantList.add(new TenantModel((short) 106, "Rita Koirala", (short) 28, "9867890125", "2023-09-30", (short) 106, "Female"));
+    }
+
+    /**
+     * Populates the List with the stored default flat and tenant data.
+     * Initialize the List with default value only when the list is null
      */
     private void initializeData() {
-        flatList = new ArrayList<>();
-        // Registering sample flat
-        registerFlat(new FlatModel((short) 100, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Available"));
-        registerFlat(new FlatModel((short) 101, 25000, 500, (byte) 1, (byte) 1, (byte) 1, "Furnished", "Available"));
-        registerFlat(new FlatModel((short) 102, 150000, 800, (byte) 2, (byte) 2, (byte) 1, "Unfurnished", "Available"));
-        registerFlat(new FlatModel((short) 103, 300000, 1200, (byte) 3, (byte) 4, (byte) 2, "Furnished", "Not Available"));
-        registerFlat(new FlatModel((short) 104, 500000, 2000, (byte) 4, (byte) 5, (byte) 3, "Furnished", "Available"));
-        registerFlat(new FlatModel((short) 105, 70000, 600, (byte) 2, (byte) 1, (byte) 1, "Unfurnished", "Available"));
-        registerFlat(new FlatModel((short) 106, 120000, 900, (byte) 3, (byte) 3, (byte) 2, "Furnished", "Not Available"));
-        registerFlat(new FlatModel((short) 107, 450000, 1800, (byte) 4, (byte) 5, (byte) 3, "Unfurnished", "Available"));
-        registerFlat(new FlatModel((short) 108, 60000, 1200, (byte) 2, (byte) 1, (byte) 1, "Furnished", "Not Available"));
-        registerFlat(new FlatModel((short) 109, 200000, 1500, (byte) 2, (byte) 4, (byte) 2, "Unfurnished", "Available"));
-        registerFlat(new FlatModel((short) 110, 350000, 2200, (byte) 4, (byte) 6, (byte) 3, "Furnished", "Not Available"));
+        try {
+            flatList.isEmpty();
+        } catch (NullPointerException ne) {
+            initialFlatData();
+        }
+
+        try {
+            tenantList.isEmpty();
+        } catch (NullPointerException ne) {
+            initialTenantData();
+        }
     }
 
     /**
@@ -589,7 +690,7 @@ public class ManageFlat extends javax.swing.JFrame {
      */
     private void registerFlat(FlatModel flat) {
         flatList.add(flat);
-        DefaultTableModel model = (DefaultTableModel) tblMangeFlat.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblManageFlat.getModel();
         model.addRow(new Object[]{
             flat.getFlatId(), flat.getPrice(), flat.getSize(), flat.getLivingroom(),
             flat.getBedroom(), flat.getKitchen(), flat.GetFurnising(), flat.GetFlatStatus()
@@ -626,7 +727,7 @@ public class ManageFlat extends javax.swing.JFrame {
     }
 
     private void pnlMenuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuHomeMouseClicked
-        new Home().setVisible(true);
+        new Home(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuHomeMouseClicked
 
@@ -639,7 +740,7 @@ public class ManageFlat extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuHomeMouseExited
 
     private void pnlMenuManageTenantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageTenantMouseClicked
-        new ManageTenant().setVisible(true);
+        new ManageTenant(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuManageTenantMouseClicked
 
@@ -652,7 +753,7 @@ public class ManageFlat extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuManageTenantMouseExited
 
     private void pnlMenuSortAndSearchFlatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuSortAndSearchFlatMouseClicked
-        new SortAndSearchFlat().setVisible(true);
+        new SortAndSearchFlat(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuSortAndSearchFlatMouseClicked
 
@@ -665,7 +766,7 @@ public class ManageFlat extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuSortAndSearchFlatMouseExited
 
     private void pnlMenuSortAndSearchTenantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuSortAndSearchTenantMouseClicked
-        new SortAndSearchTenant().setVisible(true);
+        new SortAndSearchTenant(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuSortAndSearchTenantMouseClicked
 
@@ -691,7 +792,7 @@ public class ManageFlat extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlMenuSettingLogoutMouseExited
 
     private void pnlMenuDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuDashboardMouseClicked
-        new Dashboard().setVisible(true);
+        new Dashboard(flatList, tenantList).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_pnlMenuDashboardMouseClicked
 
@@ -702,11 +803,11 @@ public class ManageFlat extends javax.swing.JFrame {
     private void pnlMenuDashboardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuDashboardMouseExited
         mouseExit(pnlMenuDashboard, lblMenuDashboardTitle);
     }//GEN-LAST:event_pnlMenuDashboardMouseExited
-   
+
     /**
-     * Handles the mouse click event on the close label in the ManageFlat window.
-     * Prompts the user with a confirmation dialog to close the system. If the
-     * user confirms, the application is terminated.
+     * Handles the mouse click event on the close label in the ManageFlat
+     * window. Prompts the user with a confirmation dialog to close the system.
+     * If the user confirms, the application is terminated.
      *
      * @param evt the event triggered by clicking on the close label
      */
@@ -738,7 +839,7 @@ public class ManageFlat extends javax.swing.JFrame {
                     ValidationUtil.isValidPrice(price)
             );
         } catch (NumberFormatException e) {
-            validateField(
+            isValid = validateField(
                     txtFldPrice, "Price", lblErrorMsgPrice, "In between 20,000 to 5,00,000",
                     false
             );
@@ -751,7 +852,7 @@ public class ManageFlat extends javax.swing.JFrame {
                     ValidationUtil.isValidSize(size)
             );
         } catch (NumberFormatException e) {
-            validateField(
+            isValid = validateField(
                     txtFldSize, "Size", lblErrorMsgSize, "In between 350 to 25,00 sq.ft",
                     false
             );
@@ -806,7 +907,7 @@ public class ManageFlat extends javax.swing.JFrame {
      */
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // Get the selected row index
-        int selectedRow = tblMangeFlat.getSelectedRow();
+        int selectedRow = tblManageFlat.getSelectedRow();
 
         if (selectedRow == -1) {
             // No row is selected
@@ -851,7 +952,7 @@ public class ManageFlat extends javax.swing.JFrame {
                     ValidationUtil.isValidPrice(price)
             );
         } catch (NumberFormatException e) {
-            validateField(
+            isValid = validateField(
                     txtFldPrice, "Price", lblErrorMsgPrice, "In between 20,000 to 5,00,000",
                     false
             );
@@ -864,10 +965,11 @@ public class ManageFlat extends javax.swing.JFrame {
                     ValidationUtil.isValidSize(size)
             );
         } catch (NumberFormatException e) {
-            validateField(
+            isValid = validateField(
                     txtFldSize, "Size", lblErrorMsgSize, "In between 350 to 25,00 sq.ft",
                     false
             );
+
         }
         // validate Avaiable status
         if (!rdoBtnAvailable.isSelected() && !rdoBtnNotAvailable.isSelected()) {
@@ -905,6 +1007,33 @@ public class ManageFlat extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void pnlMenuManageCleaningLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLogMouseClicked
+        // TODO add your handling code here:
+        new CleaningLog(flatList, tenantList).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_pnlMenuManageCleaningLogMouseClicked
+
+    private void pnlMenuManageCleaningLogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLogMouseEntered
+        // TODO add your handling code here:
+        mouseEnter(pnlMenuManageCleaningLog, lblMenuManageCleaningLog);
+    }//GEN-LAST:event_pnlMenuManageCleaningLogMouseEntered
+
+    private void pnlMenuManageCleaningLogMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMenuManageCleaningLogMouseExited
+        mouseExit(pnlMenuManageCleaningLog, lblMenuManageCleaningLog);
+    }//GEN-LAST:event_pnlMenuManageCleaningLogMouseExited
+
+    private void txtFldPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFldPriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFldPriceActionPerformed
+
+    private void txtFldFlatIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFldFlatIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFldFlatIdActionPerformed
+
+    private void comBoxFurnishingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comBoxFurnishingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comBoxFurnishingActionPerformed
     /**
      * Checks whether a flat with the same flat ID already exists in the list.
      *
@@ -942,7 +1071,7 @@ public class ManageFlat extends javax.swing.JFrame {
      * @param flatList load the data to table
      */
     private void loadListToTable(List<FlatModel> flatList) {
-        DefaultTableModel model = (DefaultTableModel) tblMangeFlat.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblManageFlat.getModel();
         // Clear existing rows if needed
         model.setRowCount(0);
         // Populate the table with student data
@@ -1045,6 +1174,8 @@ public class ManageFlat extends javax.swing.JFrame {
     private javax.swing.JLabel lblMenuDashboardTitle;
     private javax.swing.JLabel lblMenuHomeIcon;
     private javax.swing.JLabel lblMenuHomeTitle;
+    private javax.swing.JLabel lblMenuManageCleaningLog;
+    private javax.swing.JLabel lblMenuManageCleaningLogIcon;
     private javax.swing.JLabel lblMenuManageFlatIcon;
     private javax.swing.JLabel lblMenuManageFlatTitle;
     private javax.swing.JLabel lblMenuManageLeftBoder;
@@ -1074,6 +1205,7 @@ public class ManageFlat extends javax.swing.JFrame {
     private javax.swing.JPanel pnlMenu;
     private javax.swing.JPanel pnlMenuDashboard;
     private javax.swing.JPanel pnlMenuHome;
+    private javax.swing.JPanel pnlMenuManageCleaningLog;
     private javax.swing.JPanel pnlMenuManageFlat;
     private javax.swing.JPanel pnlMenuManageTenant;
     private javax.swing.JPanel pnlMenuSettingLogout;
@@ -1085,7 +1217,7 @@ public class ManageFlat extends javax.swing.JFrame {
     private javax.swing.JSlider sldBedroom;
     private javax.swing.JSlider sldKitchen;
     private javax.swing.JSlider sldLivingRoom;
-    private javax.swing.JTable tblMangeFlat;
+    private javax.swing.JTable tblManageFlat;
     private javax.swing.JTextField txtFldFlatId;
     private javax.swing.JTextField txtFldPrice;
     private javax.swing.JTextField txtFldSize;
