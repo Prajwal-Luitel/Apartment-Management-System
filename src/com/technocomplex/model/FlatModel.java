@@ -1,4 +1,4 @@
-package com.technocomplexr.model;
+package com.technocomplex.model;
 
 /**
  * The FlatModel class represents a flat entity of Techno Complex. It

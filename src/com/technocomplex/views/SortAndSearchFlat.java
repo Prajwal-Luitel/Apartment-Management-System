@@ -6,8 +6,8 @@
 package com.technocomplex.views;
 
 import com.technocomplex.controller.algorithms.MergeSort;
-import com.technocomplexr.model.FlatModel;
-import com.technocomplexr.model.TenantModel;
+import com.technocomplex.model.FlatModel;
+import com.technocomplex.model.TenantModel;
 import com.technocomplex.util.TableUtil;
 import java.awt.Color;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.technocomplexr.model;
+package com.technocomplex.model;
 
 /**
  * The TenantModel class represents a tenant entity which is living in the flat
