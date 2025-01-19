@@ -4,8 +4,8 @@
  */
 package com.technocomplex.views;
 
-import com.technocomplex.model.FlatModel;
-import com.technocomplex.model.TenantModel;
+import com.technocomplexr.model.FlatModel;
+import com.technocomplexr.model.TenantModel;
 import com.technocomplex.util.TableUtil;
 import com.technocomplex.util.ValidationUtil;
 import java.awt.Color;

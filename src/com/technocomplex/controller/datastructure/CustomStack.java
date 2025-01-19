@@ -4,7 +4,7 @@
  */
 package com.technocomplex.controller.datastructure;
 
-import com.technocomplex.model.FlatModel;
+import com.technocomplexr.model.FlatModel;
 import java.util.LinkedList;
 import java.util.List;
 

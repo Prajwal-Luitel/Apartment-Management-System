@@ -4,7 +4,7 @@
  */
 package com.technocomplex.controller.algorithms;
 
-import com.technocomplex.model.TenantModel;
+import com.technocomplexr.model.TenantModel;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -4,7 +4,7 @@
  */
 package com.technocomplex.controller.algorithms;
 
-import com.technocomplex.model.FlatModel;
+import com.technocomplexr.model.FlatModel;
 import java.util.ArrayList;
 import java.util.List;
 

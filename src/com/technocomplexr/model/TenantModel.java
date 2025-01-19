@@ -1,14 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.technoComplex.model;
+package com.technocomplexr.model;
 
 /**
+ * The TenantModel class represents a tenant entity which is living in the flat
+ * of Techno Complex. It encapsulates the attributes such as the tenant Id,
+ * name, age, contact, join date, flat Id and gender.
+ *
+ * The class has constructors, getter and setter methods to initialize and
+ * manipulate tenant details.
  *
  * @author prajwal Luitel LMU Id 23048626
  */
 public class TenantModel {
+
     private short tenantId;
     private String name;
     private short age;
@@ -16,16 +19,25 @@ public class TenantModel {
     private String joinDate;
     private short flatId;
     private String gender;
+
+    /**
+     * Constructor to initialize a tenant model.
+     *
+     */
+    public TenantModel() {
+
+    }
+
     /**
      * Constructor to initialize a tenant with the provided details.
-     * 
-     * @param tenantId  the unique Id for the tenant
-     * @param name      the name of the tenant
-     * @param age       the age of the tenant
-     * @param contact   the contact information of the tenant
-     * @param joinDate  the date when the tenant joined
-     * @param flatId    the unique flat Id which tenant is renting
-     * @param gender    the gender of the tenant
+     *
+     * @param tenantId the unique Id for the tenant
+     * @param name the name of the tenant
+     * @param age the age of the tenant
+     * @param contact the contact information of the tenant
+     * @param joinDate the date when the tenant joined
+     * @param flatId the unique flat Id which tenant is renting
+     * @param gender the gender of the tenant
      */
     public TenantModel(short tenantId, String name, short age, String contact, String joinDate, short flatId, String gender) {
         this.tenantId = tenantId;
@@ -36,16 +48,16 @@ public class TenantModel {
         this.flatId = flatId;
         this.gender = gender;
     }
-    
+
     /**
      * Gets the unique Id for the tenant
      *
-     * @return tenantId
+     * @return unique tenant Id
      */
-    public int getTenantId() {
+    public short getTenantId() {
         return tenantId;
     }
-    
+
     /**
      * Sets the unique Id for the tenant.
      *
@@ -54,7 +66,7 @@ public class TenantModel {
     public void setTenantId(short tenantId) {
         this.tenantId = tenantId;
     }
-    
+
     /**
      * Gets the name of the tenant
      *
@@ -63,7 +75,7 @@ public class TenantModel {
     public String getName() {
         return name;
     }
-    
+
     /**
      * Sets the name of the tenant.
      *
@@ -72,25 +84,25 @@ public class TenantModel {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     /**
      * Gets the age of the tenant
      *
-     * @return age
+     * @return age of the tenant
      */
     public short getAge() {
         return age;
     }
-    
+
     /**
      * Sets the age of the tenant.
      *
-     * @param age used to set
+     * @param age the tenant age to set.
      */
     public void setAge(short age) {
         this.age = age;
     }
-    
+
     /**
      * Gets the contact of the tenant
      *
@@ -99,16 +111,16 @@ public class TenantModel {
     public String getContact() {
         return contact;
     }
-    
+
     /**
      * Sets the contact of the tenant.
      *
-     * @param contact used to set
+     * @param contact the tenant contact
      */
     public void setContact(String contact) {
         this.contact = contact;
     }
-    
+
     /**
      * Gets the join date of the tenant
      *
@@ -117,7 +129,7 @@ public class TenantModel {
     public String getJoinDate() {
         return joinDate;
     }
-    
+
     /**
      * Sets the join date of the tenant.
      *
@@ -126,25 +138,25 @@ public class TenantModel {
     public void setJoinDate(String joinDate) {
         this.joinDate = joinDate;
     }
-    
+
     /**
      * Gets the unique Flat Id of the tenant
      *
      * @return flatId the unique identifier
      */
-    public int getFlatId() {
+    public short getFlatId() {
         return flatId;
     }
-    
+
     /**
-     * Sets the  unique flat Id of the tenant.
+     * Sets the unique flat Id of the tenant.
      *
      * @param flatId used to set
      */
     public void setFlatId(short flatId) {
         this.flatId = flatId;
     }
-    
+
     /**
      * Gets the gender of the tenant
      *
@@ -153,7 +165,7 @@ public class TenantModel {
     public String getGender() {
         return gender;
     }
-    
+
     /**
      * Sets the gender of the tenant.
      *
